@@ -1,0 +1,124 @@
+PatientID,total_size_MB,num_series,manufacturers,example_series
+Breast_MRI_320,502.879076,6,GE MEDICAL SYSTEMS,Ph4/ax 3d dyn MP | Ph3/ax 3d dyn MP | Ph1/ax 3d dyn MP | ax 3d dyn MP | ax t1
+Breast_MRI_378,439.680022,6,GE MEDICAL SYSTEMS,ax 3d dyn MP | ax t1 | Ph2/ax 3d dyn MP | Ph4/ax 3d dyn MP | Ph3/ax 3d dyn MP
+Breast_MRI_539,419.17556,5,GE MEDICAL SYSTEMS,ax t1 | Ph1/ax 3d dyn | Ph3/ax 3d dyn | Ph2/ax 3d dyn | ax 3d dyn
+Breast_MRI_297,417.08648,5,GE MEDICAL SYSTEMS,Ph1/ax dynamic | Ph3/ax dynamic | ax dynamic | Ph2/ax dynamic | ax t1
+Breast_MRI_532,400.192112,6,GE MEDICAL SYSTEMS,Ph3/ax 3d dyn MP | Ph4/ax 3d dyn MP | ax 3d dyn MP | Ph1/ax 3d dyn MP | ax t1
+Breast_MRI_071,424.558568,5,GE MEDICAL SYSTEMS,Ph1/ax 3d dyn | ax 3d dyn | Ph2/ax 3d dyn | Ph3/ax 3d dyn | ax t1
+Breast_MRI_494,447.559144,6,GE MEDICAL SYSTEMS,ax 3d dyn 4th pass | ax t1 +c | ax 3d dyn pre | ax 3d dyn 3rd pass | ax 3d dyn 2nd pass
+Breast_MRI_665,410.748106,6,GE MEDICAL SYSTEMS,ax 3d dyn pre | ax t1 +c | ax 3d dyn 4th pass | ax 3d dyn 3rd pass | ax 3d dyn 1st pass
+Breast_MRI_799,297.065262,5,SIEMENS,ax dyn 3rd pass | ax dyn pre | ax t1 | ax dyn 2nd pass | ax dyn 1st pass
+Breast_MRI_031,460.784656,6,GE MEDICAL SYSTEMS,Ph2/ax 3d dyn MP | Ph3/ax 3d dyn MP | Ph4/ax 3d dyn MP | ax 3d dyn MP | ax t1
+Breast_MRI_193,406.544706,5,GE MEDICAL SYSTEMS,Ph1/ax dynamic | Ph2/ax dynamic | ax dynamic | ax t1 | Ph3/ax dynamic
+Breast_MRI_873,404.486172,5,GE MEDICAL SYSTEMS,Ph1/ax dynamic | ax dynamic | Ph2/ax dynamic | ax t1 | Ph3/ax dynamic
+Breast_MRI_586,373.88437999999996,5,GE MEDICAL SYSTEMS,ax 3d dyn | Ph2/ax 3d dyn | Ph3/ax 3d dyn | Ph1/ax 3d dyn | ax t1
+Breast_MRI_606,398.125236,5,GE MEDICAL SYSTEMS,Ph3/ax dynamic | Ph2/ax dynamic | Ph1/ax dynamic | ax dynamic | ax t1
+Breast_MRI_794,409.182086,5,GE MEDICAL SYSTEMS,ax t1 | ax dynamic | Ph2/ax dynamic | Ph3/ax dynamic | Ph1/ax dynamic
+Breast_MRI_087,366.511714,5,GE MEDICAL SYSTEMS,ax 3d dyn | Ph1/ax 3d dyn | Ph2/ax 3d dyn | ax t1 | Ph3/ax 3d dyn
+Breast_MRI_322,268.536672,6,GE MEDICAL SYSTEMS,4th ax dyn | 1st ax dyn | 2nd ax dyn | AX IDEAL Breast | ax 3d pre
+Breast_MRI_362,387.632824,5,GE MEDICAL SYSTEMS,Ph1/ax 3d dyn | Ph3/ax 3d dyn | ax t1 | Ph2/ax 3d dyn | ax 3d dyn
+Breast_MRI_040,327.76281400000005,6,SIEMENS,ax dyn 1st pass | ax dyn 3rd pass | ax t1 tse +c | ax dyn pre | ax dyn 4th pass
+Breast_MRI_738,323.735358,5,SIEMENS,ax dyn pre | ax t1 | ax dyn 2nd pass | ax dyn 3rd pass | ax dyn 1st pass
+Breast_MRI_315,458.628782,5,GE MEDICAL SYSTEMS,Ph1/ax 3d dyn | Ph3/ax 3d dyn | ax 3d dyn | Ph2/ax 3d dyn | ax t1
+Breast_MRI_291,554.963932,6,GE MEDICAL SYSTEMS,ax 3d dyn | Ph4/ax 3d dyn | Ph3/ax 3d dyn | ax t1 | Ph1/ax 3d dyn
+Breast_MRI_236,522.323482,6,GE MEDICAL SYSTEMS,Ph4/ax dyn | ax t1 | Ph2/ax dyn | Ph3/ax dyn | ax dyn
+Breast_MRI_097,419.788884,5,SIEMENS,ax dyn pre | ax dyn 2nd pass | ax dyn 1st pass | ax 3d t1 bilateral | ax dyn 3rd pass
+Breast_MRI_717,331.65849000000003,6,SIEMENS,ax dyn 2nd pass | ax dyn 4th pass | ax dyn 3rd pass | ax t1 | ax dyn pre
+Breast_MRI_716,381.26263600000004,5,GE MEDICAL SYSTEMS,ax 3d dyn | Ph1/ax 3d dyn | Ph3/ax 3d dyn | ax t1 3mm | Ph2/ax 3d dyn
+Breast_MRI_600,327.77036599999997,6,SIEMENS,ax t1 | t1_fl3d_tra_dynVIEWS_spair_3rd pass | t1_fl3d_tra_dynVIEWS_spair_2nd pass | t1_fl3d_tra_dynVIEWS_spair_4th pass | t1_fl3d_tra_dynVIEWS_spair_ pre
+Breast_MRI_353,297.065342,5,SIEMENS,ax dyn 3rd pass | ax dyn 2nd pass | ax dyn pre | ax dyn 1st pass | ax t1
+Breast_MRI_860,461.27130999999997,6,GE MEDICAL SYSTEMS,Ph3/ax 3d dyn MP | Ph2/ax 3d dyn MP | Ph1/ax 3d dyn MP | Ph4/ax 3d dyn MP | ax t1
+Breast_MRI_440,436.00115999999997,6,GE MEDICAL SYSTEMS,Ph3/ax 3d dyn MP | Ph2/ax 3d dyn MP | Ph1/ax 3d dyn MP | Ph4/ax 3d dyn MP | ax t1
+Breast_MRI_260,400.215124,6,GE MEDICAL SYSTEMS,Ph4/ax 3d dyn MP | Ph3/ax 3d dyn MP | Ph2/ax 3d dyn MP | ax t1 | Ph1/ax 3d dyn MP
+Breast_MRI_108,631.945996,6,GE MEDICAL SYSTEMS,Ph1/Ax Vibrant MultiPhase | Ax Vibrant MultiPhase | Ax 3D T1 NON FS | Ph4/Ax Vibrant MultiPhase | Ph2/Ax Vibrant MultiPhase
+Breast_MRI_064,444.927322,6,GE MEDICAL SYSTEMS,ax 3d dyn 3rd pass | ax 3d dyn pre | ax 3d dyn 1st pass | ax 3d dyn 4th pass | ax 3d dyn 2nd pass
+Breast_MRI_121,330.94967199999996,6,SIEMENS,ax t1 | ax dyn 3rd pass | ax dyn 2nd pass | ax dyn 1st pass | ax dyn 4th pass
+Breast_MRI_445,347.67726400000004,5,GE MEDICAL SYSTEMS,ax 3d dyn | Ph2/ax 3d dyn | ax t1 | Ph1/ax 3d dyn | Ph3/ax 3d dyn
+Breast_MRI_758,453.875128,6,GE MEDICAL SYSTEMS,Ph3/ax dyn | ax dyn | Ph4/ax dyn | ax t1 | Ph2/ax dyn
+Breast_MRI_068,525.523736,6,GE MEDICAL SYSTEMS,Ph1/ax 3d dyn MP | Ph4/ax 3d dyn MP | Ph3/ax 3d dyn MP | ax 3d dyn MP | ax t1
+Breast_MRI_529,331.580964,6,SIEMENS,ax dyn 1st pass | ax dyn 4th pass | ax dyn 2nd pass | ax t1 | ax dyn 3rd pass
+Breast_MRI_138,606.66236,6,GE MEDICAL SYSTEMS,Ph4/Ax Vibrant MultiPhase | Ax Vibrant MultiPhase | Ph1/Ax Vibrant MultiPhase | Ph3/Ax Vibrant MultiPhase | Ax 3D T1 NON FS
+Breast_MRI_553,606.662376,6,GE MEDICAL SYSTEMS,Ax Vibrant MultiPhase | Ph3/Ax Vibrant MultiPhase | Ph2/Ax Vibrant MultiPhase | Ph4/Ax Vibrant MultiPhase | Ph1/Ax Vibrant MultiPhase
+Breast_MRI_712,398.124272,5,GE MEDICAL SYSTEMS,Ph1/ax dynamic | Ph2/ax dynamic | ax dynamic | Ph3/ax dynamic | ax t1
+Breast_MRI_333,437.04834200000005,6,GE MEDICAL SYSTEMS,Ph3/ax 3d dyn MP | ax t1 | Ph1/ax 3d dyn MP | ax 3d dyn MP | Ph2/ax 3d dyn MP
+Breast_MRI_653,476.02385400000003,6,GE MEDICAL SYSTEMS,Ph2/ax 3d dyn MP | Ph1/ax 3d dyn MP | Ph4/ax 3d dyn MP | ax 3d dyn MP | Ph3/ax 3d dyn MP
+Breast_MRI_245,432.32102199999997,6,GE MEDICAL SYSTEMS,Ph4/ax 3d dyn | ax t1 | Ph1/ax 3d dyn | Ph2/ax 3d dyn | Ph3/ax 3d dyn
+Breast_MRI_166,297.590926,6,SIEMENS,ax dyn 4th pass | ax dyn 2nd pass | ax dyn 3rd pass | ax dyn 1st pass | ax dyn pre
+Breast_MRI_760,377.057056,5,GE MEDICAL SYSTEMS,ax dynamic | Ph1/ax dynamic | ax t1 | Ph3/ax dynamic | Ph2/ax dynamic
+Breast_MRI_635,452.826216,6,GE MEDICAL SYSTEMS,Ph4/ax 3d dyn | ax 3d dyn | Ph2/ax 3d dyn | Ph1/ax 3d dyn | Ph3/ax 3d dyn
+Breast_MRI_024,416.560904,5,GE MEDICAL SYSTEMS,Ph1/ax dynamic | ax dynamic | ax t1 | Ph2/ax dynamic | Ph3/ax dynamic
+Breast_MRI_111,329.653504,5,GE MEDICAL SYSTEMS,ax t1 3mm | Ph2/ax 3d dyn | Ph1/ax 3d dyn | Ph3/ax 3d dyn | ax 3d dyn
+Breast_MRI_431,178.94613,6,SIEMENS,ax dyn 2nd pass | ax dyn 1st pass | ax t1 | ax dyn 4th pass | ax dyn 3rd pass
+Breast_MRI_756,159.435724,6,SIEMENS,ax dyn 2nd pass | ax dyn 1st pass | ax dyn pre | ax t1 | ax dyn 4th pass
+Breast_MRI_429,129.963714,5,SIEMENS,ax t1 | ax dyn 1st pass | ax dyn 2nd pass | ax dyn pre | ax dyn 3rd pass
+Breast_MRI_255,327.55016,5,GE MEDICAL SYSTEMS,ax t1 | ax dynamic | Ph3/ax dynamic | Ph2/ax dynamic | Ph1/ax dynamic
+Breast_MRI_526,297.057206,5,SIEMENS,ax dyn 2nd pass | ax t1 | ax dyn 1st pass | ax dyn pre | ax dyn 3rd pass
+Breast_MRI_410,296.63336,5,SIEMENS,ax dyn 2nd pass | ax dyn 1st pass | ax t1 | ax dyn 3rd pass | ax dyn pre
+Breast_MRI_762,514.957664,6,GE MEDICAL SYSTEMS,ax 3d dyn | ax t1 | Ph1/ax 3d dyn | Ph3/ax 3d dyn | Ph2/ax 3d dyn
+Breast_MRI_689,462.850832,6,GE MEDICAL SYSTEMS,Ph2/ax 3d dyn MP | ax 3d dyn MP | Ph1/ax 3d dyn MP | Ph4/ax 3d dyn MP | Ph3/ax 3d dyn MP
+Breast_MRI_209,246.60318,6,SIEMENS,ax t1 tse +c | ax dyn 1st pass | ax dyn pre | ax dyn 4th pass | ax dyn 2nd pass
+Breast_MRI_073,407.603842,5,GE MEDICAL SYSTEMS,Ph1/ax dynamic | ax dynamic | Ph3/ax dynamic | ax t1 | Ph2/ax dynamic
+Breast_MRI_540,402.33385599999997,5,GE MEDICAL SYSTEMS,Ph2/ax dynamic | ax dynamic | ax t1 | Ph3/ax dynamic | Ph1/ax dynamic
+Breast_MRI_312,343.94244000000003,5,GE MEDICAL SYSTEMS,ax t1 | Ph2/ax 3d dyn | Ph1/ax 3d dyn | ax 3d dyn | Ph3/ax 3d dyn
+Breast_MRI_368,419.859058,5,SIEMENS,ax dyn 3rd pass | ax dyn 1st pass | ax dyn pre | ax dyn 2nd pass | ax 3d t1 bilateral
+Breast_MRI_678,549.695696,6,GE MEDICAL SYSTEMS,Ph1/ax dyn | ax dyn | Ph4/ax dyn | Ph3/ax dyn | Ph2/ax dyn
+Breast_MRI_708,420.23641599999996,5,GE MEDICAL SYSTEMS,Ph1/ax 3d dyn | ax t1 | Ph2/ax 3d dyn | ax 3d dyn | Ph3/ax 3d dyn
+Breast_MRI_560,402.83807,6,GE MEDICAL SYSTEMS,ax 3d dyn MP | Ph4/ax 3d dyn MP | Ph1/ax 3d dyn MP | ax t1 | Ph2/ax 3d dyn MP
+Breast_MRI_880,472.862862,6,GE MEDICAL SYSTEMS,Ph3/ax 3d dyn MP | Ph1/ax 3d dyn MP | ax t1 | Ph2/ax 3d dyn MP | ax 3d dyn MP
+Breast_MRI_465,417.580206,5,GE MEDICAL SYSTEMS,ax dynamic | Ph3/ax dynamic | ax t1 | Ph1/ax dynamic | Ph2/ax dynamic
+Breast_MRI_852,403.884824,6,GE MEDICAL SYSTEMS,ax t1 +c | ax 3d dyn pre | ax 3d dyn 4th pass | ax 3d dyn 1st pass | ax 3d dyn 3rd pass
+Breast_MRI_441,420.734004,6,GE MEDICAL SYSTEMS,Ph2/ax 3d dyn MP | ax t1 | ax 3d dyn MP | Ph4/ax 3d dyn MP | Ph1/ax 3d dyn MP
+Breast_MRI_812,444.428574,6,GE MEDICAL SYSTEMS,ax 3d dyn MP | ax t1 | Ph2/ax 3d dyn MP | Ph3/ax 3d dyn MP | Ph4/ax 3d dyn MP
+Breast_MRI_798,529.730414,6,GE MEDICAL SYSTEMS,ax t1 | Ph2/ax 3d dyn MP | Ph4/ax 3d dyn MP | Ph1/ax 3d dyn MP | ax 3d dyn MP
+Breast_MRI_045,428.59754399999997,5,GE MEDICAL SYSTEMS,ax t1 | Ph3/ax dyn | Ph2/ax dyn | ax dyn | Ph1/ax dyn
+Breast_MRI_732,473.913504,6,GE MEDICAL SYSTEMS,ax 3d dyn MP | Ph2/ax 3d dyn MP | Ph3/ax 3d dyn MP | ax t1 | Ph1/ax 3d dyn MP
+Breast_MRI_313,270.7481,5,SIEMENS,ax dyn 3rd pass | ax t1 | ax dyn 2nd pass | ax dyn 1st pass | ax dyn pre
+Breast_MRI_210,245.879316,5,SIEMENS,ax dyn 2nd pass | ax dyn pre | ax dyn 3rd pass | ax t1 | ax dyn 1st pass
+Breast_MRI_358,443.37395,6,GE MEDICAL SYSTEMS,Ph2/ax 3d dyn MP | Ph1/ax 3d dyn MP | ax 3d dyn MP | ax t1 | Ph3/ax 3d dyn MP
+Breast_MRI_142,297.035176,5,SIEMENS,ax dyn 3rd pass | ax dyn 1st pass | ax dyn pre | ax dyn 2nd pass | ax t1
+Breast_MRI_831,399.75712,5,GE MEDICAL SYSTEMS,Ph2/ax dynamic | Ph1/ax dynamic | ax dynamic | ax t1 | Ph3/ax dynamic
+Breast_MRI_295,443.916902,5,GE MEDICAL SYSTEMS,Ph2/ax 3d dyn | ax 3d dyn | Ph3/ax 3d dyn | ax t1 | Ph1/ax 3d dyn
+Breast_MRI_261,470.72587799999997,6,GE MEDICAL SYSTEMS,Ph1/ax 3d dyn | ax 3d dyn | Ph4/ax 3d dyn | Ph2/ax 3d dyn | ax t1
+Breast_MRI_594,395.98301399999997,6,GE MEDICAL SYSTEMS,ax 3d dyn MP | Ph1/ax 3d dyn MP | Ph3/ax 3d dyn MP | ax t1 | Ph4/ax 3d dyn MP
+Breast_MRI_884,408.092532,6,GE MEDICAL SYSTEMS,Ph2/ax 3d dyn MP | Ph1/ax 3d dyn MP | ax 3d dyn MP | ax t1 | Ph3/ax 3d dyn MP
+Breast_MRI_327,323.73636799999997,5,SIEMENS,ax dyn 1st pass | ax dyn pre | ax t1 | ax dyn 2nd pass | ax dyn 3rd pass
+Breast_MRI_920,275.03231600000004,5,SIEMENS,ax t1 | ax dyn 3rd pass | ax dyn pre | ax dyn 1st pass | ax dyn 2nd pass
+Breast_MRI_871,494.97355799999997,6,GE MEDICAL SYSTEMS,Ph3/ax 3d dyn MP | Ph1/ax 3d dyn MP | Ph2/ax 3d dyn MP | ax 3d dyn MP | ax t1
+Breast_MRI_866,145.887968,5,SIEMENS,ax dyn 2nd pass | ax t1 | ax dyn 3rd pass | ax dyn 1st pass | ax dyn pre
+Breast_MRI_802,264.35066,6,SIEMENS,ax dyn 2nd pass | ax dyn 1st pass | ax t1 tse | ax dyn 4th pass | ax dyn pre
+Breast_MRI_281,485.5022,6,GE MEDICAL SYSTEMS,ax t1 | ax 3d dyn MP | Ph2/ax 3d dyn MP | Ph1/ax 3d dyn MP | Ph3/ax 3d dyn MP
+Breast_MRI_061,397.072598,5,GE MEDICAL SYSTEMS,ax dynamic | Ph3/ax dynamic | Ph2/ax dynamic | Ph1/ax dynamic | ax t1
+Breast_MRI_137,213.381572,5,SIEMENS,ax dyn 2nd pass | ax dyn 3rd pass | ax dyn pre | ax t1 | ax dyn 1st pass
+Breast_MRI_766,426.16979,5,GE MEDICAL SYSTEMS,Ph3/ax 3d dyn | Ph1/ax 3d dyn | ax 3d dyn | Ph2/ax 3d dyn | ax t1
+Breast_MRI_671,297.878488,5,SIEMENS,ax dyn 1st pass | ax dyn pre | ax dyn 2nd pass | ax t1 | ax dyn 3rd pass
+Breast_MRI_452,557.0759840000001,6,GE MEDICAL SYSTEMS,Ph3/ax dyn | Ph2/ax dyn | Ph1/ax dyn | ax t1 | ax dyn
+Breast_MRI_067,331.00946,6,SIEMENS,ax t1 tse | ax dyn 4th pass | ax dyn 2nd pass | ax dyn pre | ax dyn 3rd pass
+Breast_MRI_335,156.742178,6,SIEMENS,ax t1 | ax dyn 1st pass | ax dyn 3rd pass | ax dyn pre | ax dyn 4th pass
+Breast_MRI_500,426.34601,5,SIEMENS,ax dyn 3rd pass | ax dyn 1st pass | ax dyn 2nd pass | ax 3d t1 bilateral | ax dyn pre
+Breast_MRI_228,531.845628,6,GE MEDICAL SYSTEMS,Ph3/ax 3d dyn MP | Ph2/ax 3d dyn MP | Ph4/ax 3d dyn MP | ax 3d dyn MP | ax t1
+Breast_MRI_232,537.094962,6,GE MEDICAL SYSTEMS,ax 3d dyn MP | Ph3/ax 3d dyn MP | Ph2/ax 3d dyn MP | ax t1 | Ph4/ax 3d dyn MP
+Breast_MRI_425,507.58574,6,GE MEDICAL SYSTEMS,Ph1/ax 3d dyn | ax t1 | Ph4/ax 3d dyn | Ph2/ax 3d dyn | Ph3/ax 3d dyn
+Breast_MRI_240,374.953616,5,GE MEDICAL SYSTEMS,Ph2/ax 3d dyn | Ph3/ax 3d dyn | Ph1/ax 3d dyn | ax t1 | ax 3d dyn
+Breast_MRI_488,384.399766,6,GE MEDICAL SYSTEMS,ax t1 | Ph4/ax 3d dyn MP | Ph2/ax 3d dyn MP | Ph3/ax 3d dyn MP | Ph1/ax 3d dyn MP
+Breast_MRI_219,528.68268,6,GE MEDICAL SYSTEMS,Ph3/ax 3d dyn MP | Ph4/ax 3d dyn MP | Ph2/ax 3d dyn MP | ax t1 | ax 3d dyn MP
+Breast_MRI_267,351.54375,5,GE MEDICAL SYSTEMS,ax t1 | Ph3/ax 3d dyn | Ph2/ax 3d dyn | Ph1/ax 3d dyn | ax 3d dyn
+Breast_MRI_544,339.09541,6,SIEMENS,ax t1 tse | ax dyn 3rd pass | ax dyn 1st pass | ax dyn pre | ax dyn 2nd pass
+Breast_MRI_307,426.2614,5,SIEMENS,ax dyn pre | ax dyn 1st pass | ax dyn 2nd pass | ax dyn 3rd pass | ax 3d t1 bilateral
+Breast_MRI_140,330.95151599999997,6,SIEMENS,ax dyn 4th pass | ax dyn 1st pass | ax dyn 2nd pass | ax dyn 3rd pass | ax t1
+Breast_MRI_599,422.311674,6,GE MEDICAL SYSTEMS,Ph4/ax 3d dyn MP | ax t1 | ax 3d dyn MP | Ph1/ax 3d dyn MP | Ph2/ax 3d dyn MP
+Breast_MRI_918,606.658502,6,GE MEDICAL SYSTEMS,Ax Vibrant MultiPhase | Ax 3D T1 NON FS | Ph3/Ax Vibrant MultiPhase | Ph2/Ax Vibrant MultiPhase | Ph4/Ax Vibrant MultiPhase
+Breast_MRI_077,489.70947,6,GE MEDICAL SYSTEMS,ax t1 | Ph2/ax 3d dyn MP | ax 3d dyn MP | Ph1/ax 3d dyn MP | Ph3/ax 3d dyn MP
+Breast_MRI_211,327.751962,6,SIEMENS,ax t1 | ax dyn 3rd pass | ax dyn 4th pass | ax dyn 1st pass | ax dyn 2nd pass
+Breast_MRI_169,302.06062,5,SIEMENS,ax t1 | ax dyn 2nd pass | ax dyn pre | ax dyn 3rd pass | ax dyn 1st pass
+Breast_MRI_175,489.71418,6,GE MEDICAL SYSTEMS,Ph2/ax 3d dyn MP | ax t1 | Ph1/ax 3d dyn MP | ax 3d dyn MP | Ph3/ax 3d dyn MP
+Breast_MRI_214,263.183268,5,SIEMENS,ax dyn 1st pass | ax dyn 2nd pass | ax dyn 3rd pass | ax dyn pre | ax t1
+Breast_MRI_389,413.92233600000003,5,GE MEDICAL SYSTEMS,Ph3/ax dynamic | Ph2/ax dynamic | ax t1 | ax dynamic | Ph1/ax dynamic
+Breast_MRI_908,253.18946,5,GE MEDICAL SYSTEMS,ax t1 | ax 3d dyn | Ph2/ax 3d dyn | Ph1/ax 3d dyn | Ph3/ax 3d dyn
+Breast_MRI_352,360.193848,5,GE MEDICAL SYSTEMS,Ph1/ax 3d dyn | Ph2/ax 3d dyn | ax 3d dyn | ax t1 | Ph3/ax 3d dyn
+Breast_MRI_761,346.873896,5,GE MEDICAL SYSTEMS,ax 3d dyn | Ph3/ax 3d dyn | Ph2/ax 3d dyn | ax t1 | Ph1/ax 3d dyn
+Breast_MRI_306,422.309564,6,GE MEDICAL SYSTEMS,Ph4/ax 3d dyn MP | ax 3d dyn MP | ax t1 | Ph2/ax 3d dyn MP | Ph1/ax 3d dyn MP
+Breast_MRI_576,398.111496,5,GE MEDICAL SYSTEMS,Ph3/ax dynamic | ax t1 | Ph2/ax dynamic | Ph1/ax dynamic | ax dynamic
+Breast_MRI_317,382.373216,5,GE MEDICAL SYSTEMS,Ph3/ax dynamic | ax dynamic | ax t1 | Ph1/ax dynamic | Ph2/ax dynamic
+Breast_MRI_216,503.40290000000005,6,GE MEDICAL SYSTEMS,ax t1 | Ph4/ax 3d dyn MP | Ph1/ax 3d dyn MP | Ph3/ax 3d dyn MP | Ph2/ax 3d dyn MP
+Breast_MRI_829,467.06444,6,GE MEDICAL SYSTEMS,Ph1/ax 3d dyn MP | Ph4/ax 3d dyn MP | Ph2/ax 3d dyn MP | Ph3/ax 3d dyn MP | ax t1
+Breast_MRI_395,416.02041199999996,5,GE MEDICAL SYSTEMS,Ph3/ax 3d dyn | ax t1 | ax 3d dyn | Ph1/ax 3d dyn | Ph2/ax 3d dyn
