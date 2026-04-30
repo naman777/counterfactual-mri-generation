@@ -1,0 +1,42 @@
+{
+  "metadata_csv": "data/processed/ax_t1_128/processed_metadata.csv",
+  "num_examples": 5,
+  "num_baseline_records": 25,
+  "baselines": [
+    "contrast_shift",
+    "gamma",
+    "gaussian_noise",
+    "histogram_matching",
+    "identity"
+  ],
+  "mean_metrics_by_baseline": {
+    "mean_absolute_difference": {
+      "contrast_shift": 0.011894758604466916,
+      "gamma": 0.01559656448662281,
+      "gaussian_noise": 0.0198862224817276,
+      "histogram_matching": 0.06632523871958255,
+      "identity": 0.0
+    },
+    "global_ssim": {
+      "contrast_shift": 0.9934884728522944,
+      "gamma": 0.9566840178309446,
+      "gaussian_noise": 0.7286866895716314,
+      "histogram_matching": 0.7998256551665953,
+      "identity": 1.0
+    },
+    "hist_l1_distance": {
+      "contrast_shift": 0.1319091796875,
+      "gamma": 0.409716796875,
+      "gaussian_noise": 0.3824462890625,
+      "histogram_matching": 0.449755859375,
+      "identity": 0.0
+    },
+    "hist_intersection": {
+      "contrast_shift": 0.93404541015625,
+      "gamma": 0.7951416015625,
+      "gaussian_noise": 0.80877685546875,
+      "histogram_matching": 0.7751220703125,
+      "identity": 1.0
+    }
+  }
+}
