@@ -1,0 +1,39 @@
+{
+  "best_val_loss": 0.08230809400995379,
+  "final_epoch": 30,
+  "checkpoint_dir": "checkpoints\\predictor\\ax_t1_128",
+  "report_dir": "reports\\predictor\\ax_t1_128",
+  "num_parameters": 455397,
+  "config": {
+    "data": {
+      "train_csv": "data/processed/ax_t1_128/splits/train.csv",
+      "val_csv": "data/processed/ax_t1_128/splits/val.csv",
+      "test_csv": "data/processed/ax_t1_128/splits/test.csv",
+      "image_size": 128,
+      "num_workers": 0
+    },
+    "model": {
+      "backbone": "small_cnn",
+      "in_channels": 1,
+      "num_manufacturers": 2,
+      "num_field_strengths": 2,
+      "feature_dim": 256,
+      "dropout": 0.2
+    },
+    "training": {
+      "batch_size": 32,
+      "epochs": 30,
+      "lr": 0.0003,
+      "weight_decay": 0.0001,
+      "seed": 42,
+      "device": "cuda",
+      "echo_loss_weight": 0.5,
+      "use_class_weights": true,
+      "augment_train": true
+    },
+    "outputs": {
+      "checkpoint_dir": "checkpoints/predictor/ax_t1_128",
+      "report_dir": "reports/predictor/ax_t1_128"
+    }
+  }
+}
