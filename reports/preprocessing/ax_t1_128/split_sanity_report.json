@@ -1,0 +1,73 @@
+{
+  "processed_metadata_rows": 6355,
+  "patient_leakage_status": "PASS",
+  "patient_overlaps": {
+    "train_val": [],
+    "train_test": [],
+    "val_test": []
+  },
+  "total_missing_image_files": 0,
+  "splits": {
+    "train": {
+      "split": "train",
+      "num_images": 4434,
+      "num_patients": 72,
+      "manufacturer_counts": {
+        "GE MEDICAL SYSTEMS": 3541,
+        "SIEMENS": 893
+      },
+      "field_strength_counts": {
+        "1.5T": 2448,
+        "3.0T": 1986
+      },
+      "echo_time": {
+        "min": 7.88,
+        "max": 12.272,
+        "mean": 9.965454217410915,
+        "std": 1.2050261774121842
+      },
+      "missing_image_files_count": 0
+    },
+    "val": {
+      "split": "val",
+      "num_images": 987,
+      "num_patients": 15,
+      "manufacturer_counts": {
+        "GE MEDICAL SYSTEMS": 709,
+        "SIEMENS": 278
+      },
+      "field_strength_counts": {
+        "1.5T": 521,
+        "3.0T": 466
+      },
+      "echo_time": {
+        "min": 7.9,
+        "max": 12.272,
+        "mean": 10.166447821681864,
+        "std": 1.1204788195470572
+      },
+      "missing_image_files_count": 0
+    },
+    "test": {
+      "split": "test",
+      "num_images": 934,
+      "num_patients": 16,
+      "manufacturer_counts": {
+        "GE MEDICAL SYSTEMS": 587,
+        "SIEMENS": 347
+      },
+      "field_strength_counts": {
+        "3.0T": 504,
+        "1.5T": 430
+      },
+      "echo_time": {
+        "min": 8.4,
+        "max": 10.98,
+        "mean": 9.43689079229122,
+        "std": 0.7312345335422942
+      },
+      "missing_image_files_count": 0
+    }
+  },
+  "warnings": []
+}
