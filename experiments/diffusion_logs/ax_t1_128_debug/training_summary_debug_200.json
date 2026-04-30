@@ -1,0 +1,14 @@
+{
+  "experiment_name": "ax_t1_128_conditional_ddpm",
+  "train_samples": 4434,
+  "val_samples": 987,
+  "batch_size": 4,
+  "global_step": 200,
+  "latest_epoch": 1,
+  "latest_train_loss": 0.08923612569458783,
+  "latest_val_loss": 0.04552653521299362,
+  "best_val_loss": 0.04552653521299362,
+  "latest_checkpoint": "checkpoints/diffusion/ax_t1_128/latest.pt",
+  "best_checkpoint": "checkpoints/diffusion/ax_t1_128/best.pt",
+  "debug_mode": true
+}
