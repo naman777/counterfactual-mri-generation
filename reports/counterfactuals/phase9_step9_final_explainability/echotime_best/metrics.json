@@ -1,0 +1,16 @@
+{
+  "case_name": "EchoTime best",
+  "case_type": "echo_time_best",
+  "why_selected": "Best EchoTime edit with clear movement toward target and stable other controls.",
+  "run_dir": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step8_echo_time_edit\\runs\\example_00_echo_0p706_to_0p150_t100_gs1p0",
+  "metadata_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step8_echo_time_edit\\runs\\example_00_echo_0p706_to_0p150_t100_gs1p0\\metadata_with_predictor_validation.json",
+  "panel_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step9_final_explainability\\echotime_best\\explainability_panel.png",
+  "global_ssim": 0.8126732662517364,
+  "mean_abs_diff": 0.02487008646130562,
+  "max_abs_diff": 0.537128746509552,
+  "mean_local_ssim": 0.8199871778488159,
+  "min_local_ssim": 0.0,
+  "hist_l1_distance": 0.483642578125,
+  "hist_intersection": 0.7581787109375,
+  "predictor_text": "Control: EchoTime\nTarget norm: 0.150000\nBefore pred norm: 0.886376\nAfter pred norm:  0.455809\nBefore abs err: 0.736376\nAfter abs err:  0.305809\nImprovement: 0.430567\nMfg stable: GE \u2192 GE\nField stable: 1.5T \u2192 1.5T"
+}

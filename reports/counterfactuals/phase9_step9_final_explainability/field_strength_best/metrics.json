@@ -1,0 +1,16 @@
+{
+  "case_name": "Field strength best",
+  "case_type": "field_strength_best",
+  "why_selected": "Best field-strength edit with strong predictor alignment and good SSIM.",
+  "run_dir": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step7_field_strength_edit\\runs\\example_00_1p5T_to_3p0T_t100_gs3p0",
+  "metadata_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step7_field_strength_edit\\runs\\example_00_1p5T_to_3p0T_t100_gs3p0\\metadata_with_predictor_validation.json",
+  "panel_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step9_final_explainability\\field_strength_best\\explainability_panel.png",
+  "global_ssim": 0.8091077338290936,
+  "mean_abs_diff": 0.02659608982503414,
+  "max_abs_diff": 0.537128746509552,
+  "mean_local_ssim": 0.8149323463439941,
+  "min_local_ssim": 0.0,
+  "hist_l1_distance": 0.2366943359375,
+  "hist_intersection": 0.88165283203125,
+  "predictor_text": "Control: Field strength\nTarget: 3.0T\nBefore pred: 1.5T\nAfter pred: 3.0T\nTarget prob before: 0.000003\nTarget prob after:  1.000000\nGain: 0.999997"
+}

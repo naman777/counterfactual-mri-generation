@@ -1,0 +1,25 @@
+{
+  "num_examples": 2,
+  "num_outputs": 8,
+  "settings": [
+    {
+      "edit_timestep": 100,
+      "guidance_scale": 1.0
+    },
+    {
+      "edit_timestep": 100,
+      "guidance_scale": 3.0
+    },
+    {
+      "edit_timestep": 200,
+      "guidance_scale": 1.0
+    },
+    {
+      "edit_timestep": 200,
+      "guidance_scale": 3.0
+    }
+  ],
+  "mean_global_ssim": 0.7345293946345798,
+  "mean_abs_diff": 0.03110331273637712,
+  "metrics_csv": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step3_manufacturer_edit\\manufacturer_edit_metrics.csv"
+}

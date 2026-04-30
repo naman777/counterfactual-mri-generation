@@ -1,0 +1,98 @@
+{
+  "num_runs": 8,
+  "positive_target_manufacturer_gain_rate": 1.0,
+  "manufacturer_prediction_hit_target_rate_after": 0.0,
+  "mean_target_manufacturer_prob_gain": 0.00018603332776478965,
+  "median_target_manufacturer_prob_gain": 6.9609192792086105e-06,
+  "mean_global_ssim": 0.7345293946345798,
+  "mean_abs_diff": 0.03110331273637712,
+  "best_by_target_gain": [
+    {
+      "run_name": "example_01_SIEMENS_to_GE_MEDICAL_SYSTEMS_t200_gs3p0",
+      "source_manufacturer": "SIEMENS",
+      "target_manufacturer": "GE MEDICAL SYSTEMS",
+      "edit_timestep": 200,
+      "guidance_scale": 3.0,
+      "global_ssim": 0.6180500240220035,
+      "mean_abs_diff": 0.03710523247718811,
+      "target_manufacturer_prob_gain": 0.0013188095026634983,
+      "before_target_manufacturer_prob": 6.869276148790959e-06,
+      "after_target_manufacturer_prob": 0.0013256787788122892
+    },
+    {
+      "run_name": "example_01_SIEMENS_to_GE_MEDICAL_SYSTEMS_t100_gs3p0",
+      "source_manufacturer": "SIEMENS",
+      "target_manufacturer": "GE MEDICAL SYSTEMS",
+      "edit_timestep": 100,
+      "guidance_scale": 3.0,
+      "global_ssim": 0.7594491955311262,
+      "mean_abs_diff": 0.02613219805061817,
+      "target_manufacturer_prob_gain": 0.00012305893960729009,
+      "before_target_manufacturer_prob": 6.869276148790959e-06,
+      "after_target_manufacturer_prob": 0.00012992821575608104
+    },
+    {
+      "run_name": "example_00_GE_MEDICAL_SYSTEMS_to_SIEMENS_t200_gs3p0",
+      "source_manufacturer": "GE MEDICAL SYSTEMS",
+      "target_manufacturer": "SIEMENS",
+      "edit_timestep": 200,
+      "guidance_scale": 3.0,
+      "global_ssim": 0.6911379699021701,
+      "mean_abs_diff": 0.04048091173171997,
+      "target_manufacturer_prob_gain": 2.6927334488391352e-05,
+      "before_target_manufacturer_prob": 1.2789138281732448e-06,
+      "after_target_manufacturer_prob": 2.8206248316564597e-05
+    }
+  ],
+  "best_balanced_candidates": [
+    {
+      "run_name": "example_01_SIEMENS_to_GE_MEDICAL_SYSTEMS_t100_gs3p0",
+      "source_manufacturer": "SIEMENS",
+      "target_manufacturer": "GE MEDICAL SYSTEMS",
+      "edit_timestep": 100,
+      "guidance_scale": 3.0,
+      "global_ssim": 0.7594491955311262,
+      "mean_abs_diff": 0.02613219805061817,
+      "target_manufacturer_prob_gain": 0.00012305893960729009,
+      "before_target_manufacturer_prob": 6.869276148790959e-06,
+      "after_target_manufacturer_prob": 0.00012992821575608104
+    },
+    {
+      "run_name": "example_00_GE_MEDICAL_SYSTEMS_to_SIEMENS_t100_gs3p0",
+      "source_manufacturer": "GE MEDICAL SYSTEMS",
+      "target_manufacturer": "SIEMENS",
+      "edit_timestep": 100,
+      "guidance_scale": 3.0,
+      "global_ssim": 0.8006959402231049,
+      "mean_abs_diff": 0.026175033301115036,
+      "target_manufacturer_prob_gain": 7.173022254391981e-06,
+      "before_target_manufacturer_prob": 1.2789138281732448e-06,
+      "after_target_manufacturer_prob": 8.451936082565226e-06
+    },
+    {
+      "run_name": "example_01_SIEMENS_to_GE_MEDICAL_SYSTEMS_t100_gs1p0",
+      "source_manufacturer": "SIEMENS",
+      "target_manufacturer": "GE MEDICAL SYSTEMS",
+      "edit_timestep": 100,
+      "guidance_scale": 1.0,
+      "global_ssim": 0.7797395311401357,
+      "mean_abs_diff": 0.024563651531934738,
+      "target_manufacturer_prob_gain": 2.731952008616645e-06,
+      "before_target_manufacturer_prob": 6.869276148790959e-06,
+      "after_target_manufacturer_prob": 9.601228157407604e-06
+    },
+    {
+      "run_name": "example_00_GE_MEDICAL_SYSTEMS_to_SIEMENS_t100_gs1p0",
+      "source_manufacturer": "GE MEDICAL SYSTEMS",
+      "target_manufacturer": "SIEMENS",
+      "edit_timestep": 100,
+      "guidance_scale": 1.0,
+      "global_ssim": 0.8144264236914514,
+      "mean_abs_diff": 0.025025811046361923,
+      "target_manufacturer_prob_gain": 1.6915613514356664e-06,
+      "before_target_manufacturer_prob": 1.2789138281732448e-06,
+      "after_target_manufacturer_prob": 2.9704751796089113e-06
+    }
+  ],
+  "metrics_csv": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step5_predictor_validation\\manufacturer_predictor_validation.csv"
+}

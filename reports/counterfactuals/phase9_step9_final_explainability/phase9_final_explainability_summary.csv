@@ -1,0 +1,31 @@
+case_name,case_type,why_selected,global_ssim,mean_abs_diff,mean_local_ssim,hist_l1_distance,hist_intersection,run_dir,panel_path,predictor_text
+Manufacturer balanced,manufacturer_balanced,Best anatomy-preserving manufacturer edit candidate.,0.7322030425990315,0.028146350756287575,0.7363870739936829,0.165771484375,0.9171142578125,D:\mri-one-capstone\capstone\counterfactual-mri-generation\reports\counterfactuals\phase9_step6_manufacturer_tuning\runs\example_01_SIEMENS_to_GE_MEDICAL_SYSTEMS_t100_gs5p0,D:\mri-one-capstone\capstone\counterfactual-mri-generation\reports\counterfactuals\phase9_step9_final_explainability\manufacturer_balanced\explainability_panel.png,"Control: Manufacturer
+Target: GE
+Before pred: SIEMENS
+After pred: SIEMENS
+Target prob before: 0.000007
+Target prob after:  0.002560
+Gain: 0.002553"
+Manufacturer high-gain,manufacturer_high_gain,"Shows target manufacturer can be achieved, but with anatomy tradeoff.",0.2502675613662203,0.11391275376081467,0.27519524097442627,0.20458984375,0.897705078125,D:\mri-one-capstone\capstone\counterfactual-mri-generation\reports\counterfactuals\phase9_step6_manufacturer_tuning\runs\example_00_GE_MEDICAL_SYSTEMS_to_SIEMENS_t400_gs5p0,D:\mri-one-capstone\capstone\counterfactual-mri-generation\reports\counterfactuals\phase9_step9_final_explainability\manufacturer_high_gain\explainability_panel.png,"Control: Manufacturer
+Target: SIEMENS
+Before pred: GE
+After pred: SIEMENS
+Target prob before: 0.000001
+Target prob after:  1.000000
+Gain: 0.999999"
+Field strength best,field_strength_best,Best field-strength edit with strong predictor alignment and good SSIM.,0.8091077338290936,0.02659608982503414,0.8149323463439941,0.2366943359375,0.88165283203125,D:\mri-one-capstone\capstone\counterfactual-mri-generation\reports\counterfactuals\phase9_step7_field_strength_edit\runs\example_00_1p5T_to_3p0T_t100_gs3p0,D:\mri-one-capstone\capstone\counterfactual-mri-generation\reports\counterfactuals\phase9_step9_final_explainability\field_strength_best\explainability_panel.png,"Control: Field strength
+Target: 3.0T
+Before pred: 1.5T
+After pred: 3.0T
+Target prob before: 0.000003
+Target prob after:  1.000000
+Gain: 0.999997"
+EchoTime best,echo_time_best,Best EchoTime edit with clear movement toward target and stable other controls.,0.8126732662517364,0.02487008646130562,0.8199871778488159,0.483642578125,0.7581787109375,D:\mri-one-capstone\capstone\counterfactual-mri-generation\reports\counterfactuals\phase9_step8_echo_time_edit\runs\example_00_echo_0p706_to_0p150_t100_gs1p0,D:\mri-one-capstone\capstone\counterfactual-mri-generation\reports\counterfactuals\phase9_step9_final_explainability\echotime_best\explainability_panel.png,"Control: EchoTime
+Target norm: 0.150000
+Before pred norm: 0.886376
+After pred norm:  0.455809
+Before abs err: 0.736376
+After abs err:  0.305809
+Improvement: 0.430567
+Mfg stable: GE → GE
+Field stable: 1.5T → 1.5T"

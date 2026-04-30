@@ -1,0 +1,14 @@
+{
+  "edit_timestep": 100,
+  "guidance_scale": 1.0,
+  "target_manufacturer_label": 0,
+  "target_field_strength_label": 0,
+  "target_echo_time_norm": 0.7058287795992715,
+  "seed": 42,
+  "checkpoint": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\checkpoints\\diffusion\\ax_t1_128\\latest.pt",
+  "checkpoint_metadata": {
+    "epoch": 10,
+    "global_step": 11080,
+    "best_val_loss": 0.014328610366210342
+  }
+}

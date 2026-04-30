@@ -1,0 +1,16 @@
+{
+  "test_type": "same_condition_reconstruction",
+  "image_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\data\\processed\\ax_t1_128\\images\\Breast_MRI_061_1.3.6.1.4.1.14519.5.2.1.185572583235685300595845645920317801882.npy",
+  "patient_id": "Breast_MRI_061",
+  "manufacturer": "GE MEDICAL SYSTEMS",
+  "manufacturer_label": 0,
+  "field_strength": "1.5T",
+  "field_strength_label": 0,
+  "echo_time": 10.98,
+  "echo_time_norm": 0.7058287795992715,
+  "edit_timestep": 100,
+  "guidance_scale": 1.0,
+  "global_ssim": 0.8126018837773089,
+  "mean_abs_diff": 0.024880478158593178,
+  "max_abs_diff": 0.537128746509552
+}

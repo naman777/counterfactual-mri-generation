@@ -1,0 +1,16 @@
+{
+  "case_name": "Manufacturer balanced",
+  "case_type": "manufacturer_balanced",
+  "why_selected": "Best anatomy-preserving manufacturer edit candidate.",
+  "run_dir": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step6_manufacturer_tuning\\runs\\example_01_SIEMENS_to_GE_MEDICAL_SYSTEMS_t100_gs5p0",
+  "metadata_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step6_manufacturer_tuning\\runs\\example_01_SIEMENS_to_GE_MEDICAL_SYSTEMS_t100_gs5p0\\metadata_with_predictor_validation.json",
+  "panel_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step9_final_explainability\\manufacturer_balanced\\explainability_panel.png",
+  "global_ssim": 0.7322030425990315,
+  "mean_abs_diff": 0.028146350756287575,
+  "max_abs_diff": 0.4260225296020508,
+  "mean_local_ssim": 0.7363870739936829,
+  "min_local_ssim": 0.0,
+  "hist_l1_distance": 0.165771484375,
+  "hist_intersection": 0.9171142578125,
+  "predictor_text": "Control: Manufacturer\nTarget: GE\nBefore pred: SIEMENS\nAfter pred: SIEMENS\nTarget prob before: 0.000007\nTarget prob after:  0.002560\nGain: 0.002553"
+}

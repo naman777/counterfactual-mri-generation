@@ -1,0 +1,16 @@
+{
+  "case_name": "Manufacturer high-gain",
+  "case_type": "manufacturer_high_gain",
+  "why_selected": "Shows target manufacturer can be achieved, but with anatomy tradeoff.",
+  "run_dir": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step6_manufacturer_tuning\\runs\\example_00_GE_MEDICAL_SYSTEMS_to_SIEMENS_t400_gs5p0",
+  "metadata_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step6_manufacturer_tuning\\runs\\example_00_GE_MEDICAL_SYSTEMS_to_SIEMENS_t400_gs5p0\\metadata_with_predictor_validation.json",
+  "panel_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step9_final_explainability\\manufacturer_high_gain\\explainability_panel.png",
+  "global_ssim": 0.2502675613662203,
+  "mean_abs_diff": 0.11391275376081467,
+  "max_abs_diff": 0.9904861450195312,
+  "mean_local_ssim": 0.27519524097442627,
+  "min_local_ssim": 0.0,
+  "hist_l1_distance": 0.20458984375,
+  "hist_intersection": 0.897705078125,
+  "predictor_text": "Control: Manufacturer\nTarget: SIEMENS\nBefore pred: GE\nAfter pred: SIEMENS\nTarget prob before: 0.000001\nTarget prob after:  1.000000\nGain: 0.999999"
+}

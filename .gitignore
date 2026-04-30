@@ -4,3 +4,8 @@ data/processed/
 data/metadata/dicom_metadata.csv
 data/metadata/clean_metadata.csv
 data/metadata/ax_t1_metadata.csv
+
+reports/counterfactuals/phase9_step3_manufacturer_edit/runs
+reports/counterfactuals/phase9_step6_manufacturer_tuning/runs
+reports/counterfactuals/phase9_step7_field_strength_edit/runs
+reports/counterfactuals/phase9_step8_echo_time_edit/runs

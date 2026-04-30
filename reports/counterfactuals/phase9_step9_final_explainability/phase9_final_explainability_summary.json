@@ -1,0 +1,63 @@
+{
+  "num_cases": 4,
+  "cases": [
+    {
+      "case_name": "Manufacturer balanced",
+      "case_type": "manufacturer_balanced",
+      "why_selected": "Best anatomy-preserving manufacturer edit candidate.",
+      "global_ssim": 0.7322030425990315,
+      "mean_abs_diff": 0.028146350756287575,
+      "mean_local_ssim": 0.7363870739936829,
+      "hist_l1_distance": 0.165771484375,
+      "hist_intersection": 0.9171142578125,
+      "run_dir": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step6_manufacturer_tuning\\runs\\example_01_SIEMENS_to_GE_MEDICAL_SYSTEMS_t100_gs5p0",
+      "panel_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step9_final_explainability\\manufacturer_balanced\\explainability_panel.png",
+      "predictor_text": "Control: Manufacturer\nTarget: GE\nBefore pred: SIEMENS\nAfter pred: SIEMENS\nTarget prob before: 0.000007\nTarget prob after:  0.002560\nGain: 0.002553"
+    },
+    {
+      "case_name": "Manufacturer high-gain",
+      "case_type": "manufacturer_high_gain",
+      "why_selected": "Shows target manufacturer can be achieved, but with anatomy tradeoff.",
+      "global_ssim": 0.2502675613662203,
+      "mean_abs_diff": 0.11391275376081467,
+      "mean_local_ssim": 0.27519524097442627,
+      "hist_l1_distance": 0.20458984375,
+      "hist_intersection": 0.897705078125,
+      "run_dir": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step6_manufacturer_tuning\\runs\\example_00_GE_MEDICAL_SYSTEMS_to_SIEMENS_t400_gs5p0",
+      "panel_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step9_final_explainability\\manufacturer_high_gain\\explainability_panel.png",
+      "predictor_text": "Control: Manufacturer\nTarget: SIEMENS\nBefore pred: GE\nAfter pred: SIEMENS\nTarget prob before: 0.000001\nTarget prob after:  1.000000\nGain: 0.999999"
+    },
+    {
+      "case_name": "Field strength best",
+      "case_type": "field_strength_best",
+      "why_selected": "Best field-strength edit with strong predictor alignment and good SSIM.",
+      "global_ssim": 0.8091077338290936,
+      "mean_abs_diff": 0.02659608982503414,
+      "mean_local_ssim": 0.8149323463439941,
+      "hist_l1_distance": 0.2366943359375,
+      "hist_intersection": 0.88165283203125,
+      "run_dir": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step7_field_strength_edit\\runs\\example_00_1p5T_to_3p0T_t100_gs3p0",
+      "panel_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step9_final_explainability\\field_strength_best\\explainability_panel.png",
+      "predictor_text": "Control: Field strength\nTarget: 3.0T\nBefore pred: 1.5T\nAfter pred: 3.0T\nTarget prob before: 0.000003\nTarget prob after:  1.000000\nGain: 0.999997"
+    },
+    {
+      "case_name": "EchoTime best",
+      "case_type": "echo_time_best",
+      "why_selected": "Best EchoTime edit with clear movement toward target and stable other controls.",
+      "global_ssim": 0.8126732662517364,
+      "mean_abs_diff": 0.02487008646130562,
+      "mean_local_ssim": 0.8199871778488159,
+      "hist_l1_distance": 0.483642578125,
+      "hist_intersection": 0.7581787109375,
+      "run_dir": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step8_echo_time_edit\\runs\\example_00_echo_0p706_to_0p150_t100_gs1p0",
+      "panel_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step9_final_explainability\\echotime_best\\explainability_panel.png",
+      "predictor_text": "Control: EchoTime\nTarget norm: 0.150000\nBefore pred norm: 0.886376\nAfter pred norm:  0.455809\nBefore abs err: 0.736376\nAfter abs err:  0.305809\nImprovement: 0.430567\nMfg stable: GE \u2192 GE\nField stable: 1.5T \u2192 1.5T"
+    }
+  ],
+  "combined_grid_path": "D:\\mri-one-capstone\\capstone\\counterfactual-mri-generation\\reports\\counterfactuals\\phase9_step9_final_explainability\\combined_final_explainability_grid.png",
+  "interpretation": {
+    "manufacturer": "Manufacturer control shows a tradeoff: low edit strength preserves anatomy but gives weak target shift; high edit strength can hit target but damages SSIM.",
+    "field_strength": "Field strength control is the strongest result: target predictor alignment is high while anatomy preservation remains acceptable.",
+    "echo_time": "EchoTime control moves predictions toward the requested target while keeping manufacturer and field strength stable, but the movement is directional rather than exact."
+  }
+}
