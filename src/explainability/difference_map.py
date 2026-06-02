@@ -27,3 +27,5 @@ def compute_difference_summary(original: np.ndarray, generated: np.ndarray) -> d
         "changed_pixel_fraction_gt_0_05": float((diff > 0.05).mean()),
         "changed_pixel_fraction_gt_0_10": float((diff > 0.10).mean()),
     }
+
+

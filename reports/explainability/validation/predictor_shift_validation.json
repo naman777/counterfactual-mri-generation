@@ -1,0 +1,62 @@
+[
+  {
+    "example_label": "Ex1: GE->SIEMENS (mfg edit)",
+    "control": "manufacturer",
+    "checks_passed": 2,
+    "checks_total": 2,
+    "all_passed": true,
+    "global_ssim": 0.40960118315917676,
+    "mean_abs_diff": 0.07709549367427826,
+    "mfg_gain": 0.9999931166263423,
+    "fs_gain": -7.581710815429688e-05,
+    "echo_improvement": -0.26568766168992175
+  },
+  {
+    "example_label": "Ex2: 1.5T->3.0T (fs edit)",
+    "control": "field_strength",
+    "checks_passed": 2,
+    "checks_total": 2,
+    "all_passed": true,
+    "global_ssim": 0.751189402993428,
+    "mean_abs_diff": 0.03481663763523102,
+    "mfg_gain": 2.384185791015625e-07,
+    "fs_gain": 0.999812538853531,
+    "echo_improvement": -0.36245893172661914
+  },
+  {
+    "example_label": "Ex3: 3.0T->1.5T (fs edit)",
+    "control": "field_strength",
+    "checks_passed": 2,
+    "checks_total": 2,
+    "all_passed": true,
+    "global_ssim": 0.8065277328043291,
+    "mean_abs_diff": 0.02359873801469803,
+    "mfg_gain": 1.5735626220703125e-05,
+    "fs_gain": 0.992769225500524,
+    "echo_improvement": -0.5922691822052002
+  },
+  {
+    "example_label": "Ex4: High->Low echo time",
+    "control": "echo_time",
+    "checks_passed": 3,
+    "checks_total": 3,
+    "all_passed": true,
+    "global_ssim": 0.8142895110454763,
+    "mean_abs_diff": 0.025308214128017426,
+    "mfg_gain": -1.5497207641601562e-06,
+    "fs_gain": -0.0009459853172302246,
+    "echo_improvement": 0.47567468881607056
+  },
+  {
+    "example_label": "Ex5: Low->High echo time",
+    "control": "echo_time",
+    "checks_passed": 3,
+    "checks_total": 3,
+    "all_passed": true,
+    "global_ssim": 0.7928752120451671,
+    "mean_abs_diff": 0.02297917567193508,
+    "mfg_gain": 2.2649765014648438e-06,
+    "fs_gain": 0.0001348257064819336,
+    "echo_improvement": 0.015740051865577698
+  }
+]
