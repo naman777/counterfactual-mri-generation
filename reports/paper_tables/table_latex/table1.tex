@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\caption{Quantitative evaluation of counterfactual MRI generation across three acquisition-parameter control axes. Each row reports metrics averaged over test examples with fixed optimal hyperparameters.}
+\label{tab:main_results}
+\small
+\begin{tabular}{lccccc}
+\toprule
+Control & N & SSIM $\uparrow$ & MAD $\downarrow$ & Target Gain $\uparrow$ & Hit Rate $\uparrow$ \\
+\midrule
+Field Strength & 100 & 0.7623 ± 0.0325 & 0.0266 ± 0.0037 & 0.7585 ± 0.3716 & 75.0\% \\
+EchoTime & 100 & 0.7792 ± 0.0238 & 0.0258 ± 0.0033 & -0.0162 ± 0.1618 & 27.0\% \\
+Manufacturer & 100 & 0.3871 ± 0.0968 & 0.0692 ± 0.0130 & 0.6483 ± 0.4487 & 64.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,3 +1,4 @@
+# ====== DATA ======
 /data/raw/*
 data/interim/
 data/processed/
@@ -5,7 +6,83 @@ data/metadata/dicom_metadata.csv
 data/metadata/clean_metadata.csv
 data/metadata/ax_t1_metadata.csv
 
+# ====== MODEL CHECKPOINTS (Keep only essential) ======
+checkpoints/diffusion/ax_t1_128_debug/
+checkpoints/diffusion/ax_t1_128_selected/
+checkpoints/predictor/ax_t1_128/
+
+# ====== EXPERIMENTS & LOGS ======
+experiments/diffusion_logs/
+
+# ====== PHASE 9-11 EXAMPLE OUTPUTS (Per-example files are huge) ======
 reports/counterfactuals/phase9_step3_manufacturer_edit/runs
+reports/counterfactuals/phase9_step3_manufacturer_edit/**/metrics/
+reports/counterfactuals/phase9_step3_manufacturer_edit/**/panels/
+reports/counterfactuals/phase9_step3_manufacturer_edit/**/counterfactuals/
+
 reports/counterfactuals/phase9_step6_manufacturer_tuning/runs
+reports/counterfactuals/phase9_step6_manufacturer_tuning/**/metrics/
+reports/counterfactuals/phase9_step6_manufacturer_tuning/**/panels/
+
 reports/counterfactuals/phase9_step7_field_strength_edit/runs
+reports/counterfactuals/phase9_step7_field_strength_edit/**/metrics/
+reports/counterfactuals/phase9_step7_field_strength_edit/**/panels/
+
 reports/counterfactuals/phase9_step8_echo_time_edit/runs
+reports/counterfactuals/phase9_step8_echo_time_edit/**/metrics/
+reports/counterfactuals/phase9_step8_echo_time_edit/**/panels/
+
+# ====== PHASE 12 EVALUATION OUTPUTS (Keep summaries, exclude 100+ example files) ======
+# Keep: Summary files, CSV results, LaTeX tables, and scatter plots
+# Exclude: Individual example panels, metrics JSON files, counterfactual images
+
+reports/phase12/field_strength/**/panels/
+reports/phase12/field_strength/**/metrics/
+reports/phase12/field_strength/**/counterfactuals/
+
+reports/phase12/echo_time/**/panels/
+reports/phase12/echo_time/**/metrics/
+reports/phase12/echo_time/**/counterfactuals/
+
+reports/phase12/manufacturer/**/panels/
+reports/phase12/manufacturer/**/metrics/
+reports/phase12/manufacturer/**/counterfactuals/
+
+reports/phase12/ablation/**/panels/
+reports/phase12/ablation/**/metrics/
+reports/phase12/ablation/**/counterfactuals/
+
+# ====== KEEP THESE PHASE 12 FILES (Important results) ======
+# KEEP: !reports/phase12/*/*_summary.json
+# KEEP: !reports/phase12/*_results.csv
+# KEEP: !reports/phase12/paper_tables/
+# KEEP: !reports/phase12/paper_figures/
+
+# ====== NOTEBOOKS (Exclude intermediate outputs) ======
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# ====== IDE & SYSTEM ======
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+
+# ====== VIRTUAL ENVIRONMENT ======
+.venv/
+venv/
+env/
+
+# ====== NODE MODULES (Web app) ======
+web-app/node_modules/
+web-app/dist/
+web-app/.next/
