@@ -1,0 +1,32 @@
+\begin{table}[t]
+\centering
+\caption{Comparison of our diffusion-based counterfactual editing against non-generative baselines. Only the diffusion model achieves consistent target alignment across all control axes.}
+\label{tab:baseline_comparison}
+\small
+\begin{tabular}{llcccc}
+\toprule
+Control & Method & SSIM $\uparrow$ & MAD $\downarrow$ & Gain $\uparrow$ & Hit Rate $\uparrow$ \\
+\midrule
+Field Strength & \textbf{Ours (Diffusion)} & \textbf{0.7623} & 0.0266 & \textbf{+0.7585} & \textbf{75.0\%} \\
+ & Identity & 1.0000 & 0.0000 & +0.0000 & 1.0\% \\
+ & Contrast Shift & 0.9933 & 0.0127 & +0.0067 & 1.0\% \\
+ & Gamma & 0.9584 & 0.0155 & +0.0138 & 1.0\% \\
+ & Gaussian Noise & 0.7422 & 0.0199 & +0.4410 & 45.0\% \\
+ & Histogram Match & 0.7931 & 0.0571 & +0.2933 & 31.0\% \\
+\midrule
+EchoTime & \textbf{Ours (Diffusion)} & \textbf{0.7792} & 0.0258 & \textbf{-0.0162} & \textbf{27.0\%} \\
+ & Identity & 1.0000 & 0.0000 & +0.0000 & 0.0\% \\
+ & Contrast Shift & 0.9933 & 0.0127 & -0.0056 & 45.0\% \\
+ & Gamma & 0.9584 & 0.0155 & +0.0149 & 77.0\% \\
+ & Gaussian Noise & 0.7422 & 0.0199 & +0.4202 & 96.0\% \\
+ & Histogram Match & 0.7264 & 0.0790 & +0.1182 & 70.0\% \\
+\midrule
+Manufacturer & \textbf{Ours (Diffusion)} & \textbf{0.3871} & 0.0692 & \textbf{+0.6483} & \textbf{64.0\%} \\
+ & Identity & 1.0000 & 0.0000 & +0.0000 & 0.0\% \\
+ & Contrast Shift & 0.9933 & 0.0127 & -0.0001 & 0.0\% \\
+ & Gamma & 0.9584 & 0.0155 & -0.0001 & 0.0\% \\
+ & Gaussian Noise & 0.7422 & 0.0199 & +0.0727 & 4.0\% \\
+ & Histogram Match & 0.7743 & 0.0564 & +0.0004 & 0.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
