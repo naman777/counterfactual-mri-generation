@@ -11,7 +11,8 @@ python -m uvicorn api.main:app --host 127.0.0.1 --port 8000
 Open `/docs` on the API for its schema. The Next.js app proxies `/api/*` to this
 loopback server. No cloud calls, downloads or modifications to research assets.
 
-`python -m unittest api.test_contract -v` checks read-only data/API contracts.
+`python -m unittest api.test_contract -v` checks data/API contracts, source-metadata
+validation, real report formats and exact-float patient ZIP contents.
 `python -m api.smoke` performs a real epoch-110 GPU edit, compares it with saved
 B3 example 000, loads the four classifiers and writes `api/runtime/smoke.json`.
 Cross-device floating-point differences are expected; the compatibility gate is
@@ -27,6 +28,17 @@ The response identifies saved evidence versus live inference. Session results
 are bounded to 32 entries; batch archives to eight jobs. These caches are temporary.
 Restarting the API expires report and batch links. A batch currently packages saved
 evaluation images only; it does not launch a whole-patient diffusion job.
+
+Uploads accept a single 2D DICOM or PNG (10 MB maximum), reuse the existing
+preprocessing, and live in a bounded memory-only store (32 sources). DICOM source
+conditions come from metadata; PNG requires user-supplied source conditions and
+EchoTime. Neither route can certify in-distribution status: warnings explicitly
+mark unknown provenance, sequence/orientation concerns and out-of-range EchoTime.
+Raw DICOM headers and patient identifiers are not persisted or returned.
+
+`/report/{id}?format=png|pdf|json` exports a deterministic evidence card or complete
+metrics. `/paper` serves the existing local v5 IEEE PDF. Robustness probes use CPU
+only and show source-label probabilities under seeded noise and/or vertical flip.
 
 Data sources: the test split CSV; B3 `remote/full/test/*/{images.npz,metrics.csv}`;
 B2 `regrade_b3/{summary,per_slice}.csv` and `regrade_old/summary.csv`; B3 analysis

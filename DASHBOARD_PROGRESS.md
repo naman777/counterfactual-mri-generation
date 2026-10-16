@@ -36,6 +36,14 @@ Research outputs and checkpoints are read-only inputs. EchoTime stays fixed.
 - Next.js production build and TypeScript check pass for all six routes.
 - Browser QA caught and fixed MUI/Emotion SSR hydration and loading-select warnings.
   The Studio displays actual per-judge probabilities and labels saved results.
+- HTTP integration through the Next.js proxy passed with caching disabled: epoch
+  110 EMA, same-noise null and epoch 10 each streamed 13 real intermediate frames.
+  Fixed EchoTime and four-classifier verification passed in every run. CPU noise
+  and flip probes loaded five classifiers (including the legacy control); a real
+  local DICOM passed preprocessing without returning its patient identifier.
+  Receipt: `api/runtime/integration.json` (local/ignored).
+- Milestones committed: `580a573` progress log; `fc2420b` numerical backend;
+  `aedfaf6` six-page MUI frontend. Further integration/export fixes follow.
 
 ## Continue here
 

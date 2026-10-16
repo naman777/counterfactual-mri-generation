@@ -35,12 +35,21 @@ def slices():
 
 
 def slice_info(slice_id):
+    if slice_id.startswith("upload_"):
+        from api.uploads import UPLOADS
+        if slice_id not in UPLOADS:
+            raise ValueError("Upload expired; upload the source again")
+        return UPLOADS[slice_id][0].copy()
     if not slice_id.isdigit() or not 0 <= int(slice_id) < len(slices()):
         raise ValueError("Unknown test slice")
     return slices()[int(slice_id)].copy()
 
 
 def source_image(slice_id):
+    if slice_id.startswith("upload_"):
+        from api.uploads import UPLOADS
+        slice_info(slice_id)
+        return UPLOADS[slice_id][1].copy()
     return np.load(ROOT / slice_info(slice_id)["path"], allow_pickle=False).astype(np.float32)
 
 
@@ -77,7 +86,7 @@ def evidence_rows(set_name, variant="cf"):
         raise ValueError("Unknown image variant")
     saved = csv_rows(B3 / set_name / "metrics.csv")
     held = csv_rows(B2 / "regrade_b3/per_slice.csv")
-    axis = "manufacturer" if "manufacturer" in set_name else "field_strength"
+    axis = "both" if set_name.startswith("joint_") else "manufacturer" if "manufacturer" in set_name else "field_strength"
     key = "mfg" if axis == "manufacturer" else "fs"
     result = []
     for i, test_index in enumerate(z["indices"]):
@@ -87,10 +96,10 @@ def evidence_rows(set_name, variant="cf"):
                        and r["variant"] == variant and r["family"] == "orientation_robust"]
         result.append(dict(index=i, slice=slice_info(str(test_index)),
                            ssim=float(original["ssim"]) if original else None,
-                           original_hit=bool(float(original[f"{key}_hit"])) if original else None,
+                           original_hit=bool(float(original["both_hit" if axis == "both" else f"{key}_hit"])) if original else None,
                            confirmed=sum(int(float(r["hit"])) for r in independent),
                            judges=[dict(name=f"Held-out judge {r['seed']}", hit=bool(float(r["hit"])), gain=float(r["gain"])) for r in independent],
-                           direction=f"{int(z['source_' + key][i])}_to_{1-int(z['source_' + key][i])}",
+                           direction="joint" if axis == "both" else f"{int(z['source_' + key][i])}_to_{1-int(z['source_' + key][i])}",
                            sources=[relative(B3 / set_name / "images.npz"), relative(B3 / set_name / "metrics.csv"), relative(B2 / "regrade_b3/per_slice.csv")]))
     return result
 
@@ -122,3 +131,17 @@ def headline_results(axis):
                                mean=float(r["hit_mean"]), lo=float(r["hit_patient_lo"]), hi=float(r["hit_patient_hi"]),
                                n=int(r["n"]), patients=int(r["patients"]), source=relative(path)))
     return result
+
+
+def tradeoff(axis):
+    setting = "field_strength_t100_w5_s0" if axis == "field_strength" else "manufacturer_t300_w3_s0"
+    name = "main_" + setting
+    path = B3 / name / "metrics.csv"
+    key = "fs" if axis == "field_strength" else "mfg"
+    originals = {r["example_id"]: r for r in csv_rows(path) if r["judge"] == "original_predictor" and r["variant"] == "cf"}
+    rows = [dict(judge="Original predictor", ssim=float(r["ssim"]), gain=float(r[f"{key}_gain"]), patient=r["patient_id"], source=relative(path)) for r in originals.values()]
+    held_path = B2 / "regrade_b3/per_slice.csv"
+    for r in csv_rows(held_path):
+        if r["family"] == "orientation_robust" and r["set"] == name and r["variant"] == "cf":
+            rows.append(dict(judge=f"Held-out judge {r['seed']}", ssim=float(originals[r["example_id"]]["ssim"]), gain=float(r["gain"]), patient=r["patient_id"], source=relative(held_path), ssim_source=relative(path)))
+    return rows

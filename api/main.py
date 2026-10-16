@@ -14,8 +14,8 @@ from typing import Literal
 
 import numpy as np
 import torch
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import Response, StreamingResponse
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form
+from fastapi.responses import FileResponse, Response, StreamingResponse
 from pydantic import BaseModel, ConfigDict, Field
 
 from api import data
@@ -58,6 +58,14 @@ def health():
                 research_only=True)
 
 
+@app.get("/paper")
+def paper():
+    path = data.ROOT.parent / "research-paper-v5/paper_v5_ieee.pdf"
+    if not path.exists():
+        raise HTTPException(404, "The v5 paper PDF is not available on this machine")
+    return FileResponse(path, media_type="application/pdf", filename="mrone-paper-v5.pdf")
+
+
 @app.get("/slices")
 def slices(patient: str | None = None, manufacturer: int | None = None, field_strength: int | None = None):
     items = [s for s in data.slices() if (patient is None or s["patient"] == patient)
@@ -79,7 +87,7 @@ def slice_image(slice_id: str):
 
 
 def saved_edit(req, source):
-    if req.model != "converged" or req.null_edit:
+    if req.model != "converged" or req.null_edit or not req.slice_id.isdigit():
         return None
     changed = [k for k in ("manufacturer", "field_strength") if getattr(req, k) != source[k]]
     if len(changed) != 1:
@@ -139,6 +147,21 @@ def run_edit(req, emit=lambda event: None):
         while len(CACHE) > 32:
             CACHE.popitem(last=False)
     return result
+
+
+@app.post("/upload")
+async def upload(file: UploadFile = File(...), manufacturer: int | None = Form(None),
+                 field_strength: int | None = Form(None), echo_ms: float | None = Form(None)):
+    content = await file.read(10 * 1024 * 1024 + 1)
+    await file.close()
+    if len(content) > 10 * 1024 * 1024:
+        raise HTTPException(413, "Upload limit is 10 MB")
+    try:
+        from api.uploads import preprocess_upload
+        return preprocess_upload(content, file.filename or "", manufacturer, field_strength, echo_ms)
+    except Exception as exc:
+        LOG.info("Upload rejected: %s", exc)
+        raise HTTPException(422, "Could not preprocess this source: " + str(exc)) from exc
 
 
 @app.post("/edit")
@@ -237,6 +260,11 @@ def result_data(chart: Literal["tradeoff", "variance", "high-frequency"]):
     return dict(items=data.csv_rows(path), source=data.relative(path))
 
 
+@app.get("/tradeoff/{axis}")
+def tradeoff(axis: Literal["field_strength", "manufacturer"]):
+    return dict(items=data.tradeoff(axis))
+
+
 class BatchRequest(BaseModel):
     set_name: str = "main_field_strength_t100_w5_s0"
     variant: str = "cf"
@@ -261,7 +289,8 @@ def make_batch(job_id, req):
                 archive.writestr(name + ".npy", buffer.getvalue())
                 archive.writestr(name + ".png", data.png_bytes(arr))
                 archive.writestr(name + ".json", json.dumps(r, indent=2))
-            archive.writestr("manifest.json", json.dumps(dict(research_only=True, mode="precomputed B3 evaluation export", request=req.model_dump(), count=len(rows), slices=rows), indent=2))
+            job = json.loads((data.B3 / req.set_name / "job.json").read_text())
+            archive.writestr("manifest.json", json.dumps(dict(research_only=True, mode="precomputed B3 evaluation export", request=req.model_dump(), generation=job, count=len(rows), slices=rows), indent=2))
         BATCHES[job_id].update(status="complete", count=len(rows), content=output.getvalue())
     except Exception as exc:
         LOG.exception("Batch export failed")
@@ -300,9 +329,14 @@ def batch_download(job_id: str):
 
 
 @app.get("/report/{result_id}")
-def report(result_id: str):
+def report(result_id: str, format: Literal["json", "png", "pdf"] = "json"):
     with CACHE_LOCK:
         result = CACHE.get(result_id)
     if result is None:
         raise HTTPException(404, "Result expired; rerun the edit")
-    return Response(json.dumps(result, indent=2, allow_nan=False), media_type="application/json", headers={"Content-Disposition": 'attachment; filename="mrone-report.json"'})
+    if format == "json":
+        content, mime = json.dumps(result, indent=2, allow_nan=False), "application/json"
+    else:
+        from api.report import report_card
+        content, mime = report_card(result, format), "application/pdf" if format == "pdf" else "image/png"
+    return Response(content, media_type=mime, headers={"Content-Disposition": f'attachment; filename="mrone-report.{format}"'})
