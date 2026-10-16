@@ -148,7 +148,7 @@ export function Scan({
             </span>
           </div>
         )}
-        <span className="orientation">A</span>
+        <span className="orientation">row 0</span>
         <span className="scan-scale">128 × 128</span>
       </div>
     </figure>

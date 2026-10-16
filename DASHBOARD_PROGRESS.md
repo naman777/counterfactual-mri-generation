@@ -20,7 +20,8 @@ Research outputs and checkpoints are read-only inputs. EchoTime stays fixed.
 - [x] Phase 3 implementation: CPU robustness probes, same-noise null edit and PNG/PDF/JSON report exports. [`api/`, `web-app/src/components/`]
 - [x] Phase 4 first increment: DICOM/PNG upload with explicit domain warnings, saved-patient batch ZIP and model card.
 - [ ] Phase 4 remaining: queue **new live** edits for all slices of a patient (current exports use saved evaluation slices).
-- [ ] Phase 5: curated cache, demo script, backup recording and second-machine rehearsal.
+- [x] Phase 5 first increment: presets, loading/error states, exact B3/session caching and three-minute demo script. [`web-app/DEMO.md`]
+- [ ] Phase 5 remaining: persistent curated cache, dark mode, backup recording and second-machine rehearsal.
 
 ## Verification / commits
 
@@ -43,11 +44,21 @@ Research outputs and checkpoints are read-only inputs. EchoTime stays fixed.
   local DICOM passed preprocessing without returning its patient identifier.
   Receipt: `api/runtime/integration.json` (local/ignored).
 - Milestones committed: `580a573` progress log; `fc2420b` numerical backend;
-  `aedfaf6` six-page MUI frontend. Further integration/export fixes follow.
+  `aedfaf6` six-page MUI frontend; `3f83061` uploads, exports and proxy integration.
+- Final browser QA: live Studio and same-noise null metrics rendered; original-only
+  Evidence filter showed actual matching records; Results displayed source-backed
+  patient CIs; CPU noise probe rendered five classifiers; a seven-slice patient
+  archive completed with a download link. No browser errors/warnings remained.
+- Responsive checks: Studio at a 390 px viewport had 390 px document width (no
+  horizontal overflow); laptop layout checked at 1440 px. Preview screenshot:
+  `api/runtime/studio.jpg` (ignored). Export PDF rendered as one unclipped page.
+- Final polish preserves the target image while a null run streams, identifies
+  changed controls before regeneration, and uses array-row markers rather than
+  asserting an unverified anatomical orientation.
 
 ## Continue here
 
-Finish browser/API integration QA and commit this first complete local prototype.
-Next priorities: persistent jobs/cache, whole-patient live generation queue, demo
-recording and second-machine rehearsal. Cloud/public deployment and Groq/history
-remain optional and have not been started.
+First local prototype complete. Next priorities: persistent jobs/cache,
+whole-patient live generation queue, dark mode, demo recording and second-machine
+rehearsal. Cloud/public deployment and Groq/history remain optional and have not
+been started. Commits are local; nothing has been pushed or published.

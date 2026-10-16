@@ -126,7 +126,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
         if (event.message) setStatus(event.message);
         if (event.type === "frame") {
           setProgress((event.progress || 0) * 100);
-          setFrame(event.image);
+          if (!nullEdit) setFrame(event.image);
         }
         if (event.type === "result" && event.result) {
           if (nullEdit) setNullResult(event.result);
@@ -153,6 +153,14 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
     result && nullResult && nullResult.metrics.hf_after > 0
       ? result.metrics.hf_after / nullResult.metrics.hf_after
       : null;
+  const settingsChanged =
+    result &&
+    (result.request.manufacturer !== mfg ||
+      result.request.field_strength !== fs ||
+      result.request.timestep !== t ||
+      result.request.guidance !== w ||
+      result.request.seed !== seed ||
+      result.request.model !== model);
   return (
     <>
       {source.warnings && (
@@ -169,6 +177,15 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
         <span className="strip-end">Patient-disjoint test split</span>
       </div>
       <ResourceError message={error} />
+      {settingsChanged && (
+        <Alert severity="info" sx={{ mb: 2 }}>
+          Controls have changed. The displayed result uses t=
+          {result.request.timestep}, w={result.request.guidance}, seed=
+          {result.request.seed} and {result.request.model}. Generate again to
+          apply the new controls; null comparison keeps the completed
+          edit&apos;s settings.
+        </Alert>
+      )}
       <div className="studio-grid">
         <section className={`panel controls ${busy ? "controls-busy" : ""}`}>
           <div className="panel-heading">

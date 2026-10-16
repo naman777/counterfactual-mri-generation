@@ -951,7 +951,15 @@ export function About({ health }: { health?: Health }) {
             Thapar Institute · CPG-328
           </p>
           <SourcePath path="research-paper-v5/paper_v5_ieee.pdf" />
-          <Button href="/api/paper" variant="outlined" size="small" startIcon={<DownloadOutlined />} sx={{ mt: 2 }}>Open IEEE paper PDF</Button>
+          <Button
+            href="/api/paper"
+            variant="outlined"
+            size="small"
+            startIcon={<DownloadOutlined />}
+            sx={{ mt: 2 }}
+          >
+            Open IEEE paper PDF
+          </Button>
           <p className="muted">
             The paper is available in the local workspace. Public sharing and
             hosting are separate, optional steps.

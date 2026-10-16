@@ -263,7 +263,21 @@ function Variance({ axis }: { axis: string }) {
                 tickFormatter={(v) => `${v}%`}
                 tick={{ fontSize: 10 }}
               />
-              <Tooltip content={({ active, payload }) => active && payload?.length ? <div className="chart-tooltip"><strong>{payload[0].payload.judge}</strong>{payload.map(p => <p key={String(p.dataKey)}>{p.name}: {Number(p.value).toFixed(1)}%</p>)}<SourcePath path={payload[0].payload.source} /></div> : null} />
+              <Tooltip
+                content={({ active, payload }) =>
+                  active && payload?.length ? (
+                    <div className="chart-tooltip">
+                      <strong>{payload[0].payload.judge}</strong>
+                      {payload.map((p) => (
+                        <p key={String(p.dataKey)}>
+                          {p.name}: {Number(p.value).toFixed(1)}%
+                        </p>
+                      ))}
+                      <SourcePath path={payload[0].payload.source} />
+                    </div>
+                  ) : null
+                }
+              />
               <Legend wrapperStyle={{ fontSize: 10 }} />
               <Bar
                 dataKey="g0"
@@ -317,7 +331,22 @@ function HighFrequency() {
               <CartesianGrid vertical={false} stroke="#e7edef" />
               <XAxis dataKey="label" tick={{ fontSize: 11 }} />
               <YAxis tickFormatter={(v) => `${v}×`} tick={{ fontSize: 10 }} />
-              <Tooltip content={({ active, payload }) => { if (!active || !payload?.length) return null; const r = payload[0].payload; return <div className="chart-tooltip"><strong>{r.label}</strong><p>{r.value.toFixed(3)}× [{r.lo.toFixed(3)}, {r.hi.toFixed(3)}]</p><SourcePath path={r.source} /></div>; }} />
+              <Tooltip
+                content={({ active, payload }) => {
+                  if (!active || !payload?.length) return null;
+                  const r = payload[0].payload;
+                  return (
+                    <div className="chart-tooltip">
+                      <strong>{r.label}</strong>
+                      <p>
+                        {r.value.toFixed(3)}× [{r.lo.toFixed(3)},{" "}
+                        {r.hi.toFixed(3)}]
+                      </p>
+                      <SourcePath path={r.source} />
+                    </div>
+                  );
+                }}
+              />
               <Bar
                 dataKey="value"
                 name="Target / null HF energy"

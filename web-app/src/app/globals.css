@@ -7,12 +7,35 @@
   --font-sans: var(--font-geist-sans);
 }
 
-.report-downloads { padding: 17px 16px; }
-.report-downloads > div { display: flex; gap: 7px; margin-top: 14px; }
-.report-downloads .MuiButton-root { min-width: 0; flex: 1; font-size: 9px; padding: 7px 6px; }
-.report-downloads .MuiSvgIcon-root { font-size: 14px; }
-.chart-select { max-width: 300px; margin: 5px 0 10px; }
-.hf-intervals { display: flex; flex-wrap: wrap; gap: 20px; margin: 8px 0 15px; color: #627c89; font-size: 11px; }
+.report-downloads {
+  padding: 17px 16px;
+}
+.report-downloads > div {
+  display: flex;
+  gap: 7px;
+  margin-top: 14px;
+}
+.report-downloads .MuiButton-root {
+  min-width: 0;
+  flex: 1;
+  font-size: 9px;
+  padding: 7px 6px;
+}
+.report-downloads .MuiSvgIcon-root {
+  font-size: 14px;
+}
+.chart-select {
+  max-width: 300px;
+  margin: 5px 0 10px;
+}
+.hf-intervals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 8px 0 15px;
+  color: #627c89;
+  font-size: 11px;
+}
 * {
   box-sizing: border-box;
 }
@@ -73,7 +96,7 @@ code,
   font-size: 11px;
   font-variant-numeric: tabular-nums;
 }
-fieldset {
+fieldset:not(.MuiOutlinedInput-notchedOutline) {
   margin: 0;
   padding: 0;
   border: 0;

@@ -17,6 +17,9 @@ validation, real report formats and exact-float patient ZIP contents.
 B3 example 000, loads the four classifiers and writes `api/runtime/smoke.json`.
 Cross-device floating-point differences are expected; the compatibility gate is
 SSIM > 0.999, not bitwise equality. Intermediate streamed frames are noisy states.
+With both servers running, `python -m api.verify_runtime` exercises actual live
+edits on both checkpoints, null editing, CPU probes, DICOM preprocessing, exports
+and source-backed routes through the Next.js proxy. Receipts are in `api/runtime/`.
 
 Both diffusion models are loaded lazily and retained. The converged loader
 explicitly chooses `ema_*_state_dict`; development falls back to the raw keys.
