@@ -14,7 +14,7 @@ Research outputs and checkpoints are read-only inputs. EchoTime stays fixed.
 
 ## Checklist
 
-- [ ] Phase 0: EMA-aware backend, edit/judge endpoints and B3 reproduction smoke check.
+- [x] Phase 0: EMA-aware backend, edit/judge endpoints and B3 reproduction smoke check. [`api/`]
 - [ ] Phase 1: Studio, navigation, maps, streamed progress and verification.
 - [ ] Phase 2: precomputed evidence and source-backed headline charts.
 - [ ] Phase 3: CPU robustness probes, same-noise null edit and report exports.
@@ -26,6 +26,10 @@ Research outputs and checkpoints are read-only inputs. EchoTime stays fixed.
 - Initial inspection: the code folder already has Git and an origin remote. Existing
   unrelated modified/untracked files will be left out of dashboard commits.
 - Confirmed local models, precomputed B3 images, re-grade CSVs and Python API dependencies.
+- Backend milestone: four contract tests passed. Real CUDA epoch-110 example 000
+  reproduces B3 with SSIM 0.999999814 (maximum pixel difference 0.0004722).
+  EMA selection and fixed EchoTime verified; original predictor + three held-out
+  classifiers load successfully. Receipt: `api/runtime/smoke.json` (local/ignored).
 
 ## Continue here
 
