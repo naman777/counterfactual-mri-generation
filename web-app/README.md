@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MR-one Counterfactual Workbench
 
-## Getting Started
+Local Next.js App Router + MUI frontend for breast-MRI counterfactual research.
+The FastAPI adapter in `../api/` reads existing data/models/results without changing
+them. Research use only; not for diagnosis.
 
-First, run the development server:
+## Run on the laptop
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Terminal 1, from `counterfactual-mri-generation/`, using the system Python:
+
+```powershell
+python -m pip install -r api/requirements.txt
+python -m uvicorn api.main:app --host 127.0.0.1 --port 8000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Terminal 2, from `counterfactual-mri-generation/web-app/`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```powershell
+pnpm install --frozen-lockfile
+pnpm dev --hostname 127.0.0.1
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open http://127.0.0.1:3000. The app proxies `/api/*` to the local Python service;
+set `MRONE_API_URL` before starting Next.js to change that destination. There are
+no external services or credentials to configure. Keep the API on loopback.
 
-## Learn More
+## Pages
 
-To learn more about Next.js, take a look at the following resources:
+- `/`: Studio with manifest filters, PNG/DICOM input, fixed source EchoTime,
+  epoch-110 EMA / epoch-10 selector, live denoising frames, maps, histogram,
+  wipe comparison, four classifier panels and same-noise null comparison.
+- `/evidence`: all saved B3 evaluation sets/variants, patient/direction/verdict
+  filters and source-file provenance. No diffusion inference required.
+- `/results`: saved hit rates with patient-clustered CIs, epoch comparison,
+  per-slice SSIM vs gain, generation/judge-seed variation, HF energy and raw records.
+- `/robustness`: deterministic Gaussian-noise and vertical-flip probes, CPU only.
+- `/batch`: ZIP of saved evaluation images, full-precision arrays and manifests,
+  filtered by patient and judge agreement.
+- `/about`: intended use, limitations, team, checkpoints and the local IEEE paper.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Turn off **Use saved results when available** to force live diffusion. Otherwise
+an exact matching B3 edit or session cache may be used, with a visible chip. The
+cache never labels playback as live denoising. A null run uses the completed edit's
+source, t, w, seed and model, even if the controls have since changed.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Inputs needed
 
-## Deploy on Vercel
+The existing test split and `.npy` images; both diffusion checkpoints; original
+predictor; frozen B2 held-out checkpoints (plus legacy seed 0 for the robustness
+control); B3 image packs/metrics, B2 re-grades and analysis CSVs. See `api/data.py`
+for exact locations and `../api/README.md` for API behaviour. Research assets stay
+outside this dashboard's commits. A fresh clone needs those inputs provisioned.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Checks
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```powershell
+# From web-app/
+pnpm exec tsc --noEmit
+pnpm build
+# From the code root
+python -m unittest api.test_contract -v
+python -m api.smoke
+```
+
+MUI uses the Next.js 16 App Router cache provider for streaming-safe Emotion SSR.
+The interface uses responsive CSS and real MRI bitmaps, with no generated or mock
+results. `DEMO.md` provides a short walkthrough. `../DASHBOARD_PROGRESS.md` tracks
+implementation, verification, commits and remaining work.
+
+## Current limits
+
+Batch exports contain the selected patient's **evaluation slices**, not the whole
+patient's test series. Whole-patient live generation and persistent queues/cache
+remain planned. Upload warnings are metadata/domain checks, not a validated OOD
+detector. Uploads, report links and batch jobs expire on API restart. There is no
+authentication, deployment, Groq integration or database history in this version.
+Demo recording and a second-machine rehearsal remain to be done.

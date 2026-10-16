@@ -15,10 +15,11 @@ Research outputs and checkpoints are read-only inputs. EchoTime stays fixed.
 ## Checklist
 
 - [x] Phase 0: EMA-aware backend, edit/judge endpoints and B3 reproduction smoke check. [`api/`]
-- [ ] Phase 1: Studio, navigation, maps, streamed progress and verification.
-- [ ] Phase 2: precomputed evidence and source-backed headline charts.
-- [ ] Phase 3: CPU robustness probes, same-noise null edit and report exports.
-- [ ] Phase 4: upload, batch zip and model card.
+- [x] Phase 1: Studio, navigation, maps, streamed progress and verification. [`web-app/src/`]
+- [x] Phase 2: precomputed evidence and source-backed headline charts. [`api/data.py`, `web-app/src/components/research-charts.tsx`]
+- [x] Phase 3 implementation: CPU robustness probes, same-noise null edit and PNG/PDF/JSON report exports. [`api/`, `web-app/src/components/`]
+- [x] Phase 4 first increment: DICOM/PNG upload with explicit domain warnings, saved-patient batch ZIP and model card.
+- [ ] Phase 4 remaining: queue **new live** edits for all slices of a patient (current exports use saved evaluation slices).
 - [ ] Phase 5: curated cache, demo script, backup recording and second-machine rehearsal.
 
 ## Verification / commits
@@ -30,8 +31,15 @@ Research outputs and checkpoints are read-only inputs. EchoTime stays fixed.
   reproduces B3 with SSIM 0.999999814 (maximum pixel difference 0.0004722).
   EMA selection and fixed EchoTime verified; original predictor + three held-out
   classifiers load successfully. Receipt: `api/runtime/smoke.json` (local/ignored).
+- Eight backend contract tests now pass, including PNG source metadata, exact-float
+  patient archive contents, joint-target verdicts and PNG/PDF/JSON report formats.
+- Next.js production build and TypeScript check pass for all six routes.
+- Browser QA caught and fixed MUI/Emotion SSR hydration and loading-select warnings.
+  The Studio displays actual per-judge probabilities and labels saved results.
 
 ## Continue here
 
-Build the API adapter and validate one epoch-110 edit against saved B3 data before
-claiming model compatibility. Record checks, limitations and commit milestones below.
+Finish browser/API integration QA and commit this first complete local prototype.
+Next priorities: persistent jobs/cache, whole-patient live generation queue, demo
+recording and second-machine rehearsal. Cloud/public deployment and Groq/history
+remain optional and have not been started.
