@@ -1,0 +1,49 @@
+1
+00:00:00,000 --> 00:00:18,000
+MR-one: saved-evidence walkthrough
+Recorded dashboard views. No live GPU inference is shown.
+
+2
+00:00:18,000 --> 00:00:36,000
+The research question and pipeline
+Headline rates name each judge and include patient-clustered confidence intervals.
+
+3
+00:00:36,000 --> 00:00:54,000
+Studio: choose a slice and an acquisition target
+The paper seed is selected automatically. EchoTime stays at its source value.
+
+4
+00:00:54,000 --> 00:01:12,000
+Explainability: difference and local SSIM maps
+Inspect where the target edit changes the image.
+
+5
+00:01:12,000 --> 00:01:30,000
+Intensity distribution on source foreground pixels
+The same foreground mask applies to the source and edited image.
+
+6
+00:01:30,000 --> 00:01:48,000
+Independent verification and the same-noise null edit
+Judge disagreement remains visible. Agreement does not establish clinical validity.
+
+7
+00:01:48,000 --> 00:02:06,000
+Results: cohort rates, uncertainty and provenance
+Read the original predictor and held-out judges separately.
+
+8
+00:02:06,000 --> 00:02:24,000
+Mechanism: high-frequency energy and uncertainty
+Readable labels and two-decimal values retain the original units.
+
+9
+00:02:24,000 --> 00:02:42,000
+Evidence Explorer: browse saved evaluation outputs
+Filter successes and disagreements. Selected demo cases are illustrative.
+
+10
+00:02:42,000 --> 00:03:00,000
+Saved-patient export: images and a provenance manifest
+Whole-patient live generation remains pending. Research use only.

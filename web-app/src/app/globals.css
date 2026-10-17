@@ -1722,3 +1722,30 @@ footer {
     scroll-behavior: auto !important;
   }
 }
+/* Research overview follows the workbench's existing typography and surfaces. */
+.overview-intro { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; padding: 2rem; margin-bottom: 1.5rem; }
+.overview-intro h2 { font-size: clamp(1.6rem, 2.6vw, 2.4rem); letter-spacing: -.04em; line-height: 1.15; margin: .75rem 0 1rem; text-wrap: balance; }
+.overview-intro p { max-width: 65ch; line-height: 1.7; color: #647582; }
+.overview-intro aside { border-left: 1px solid #e3e9ed; padding-left: 2rem; }
+.overview-intro aside strong { color: #192b39; }
+.overview-pipeline, .overview-findings { padding: 1.5rem; margin-bottom: 1.5rem; }
+.pipeline-steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); padding: 0; gap: 1.5rem; margin: 1.5rem 0 .5rem; }
+.pipeline-steps li { position: relative; padding: 1rem 1rem 0 0; border-top: 2px solid #087f73; }
+.pipeline-steps li:not(:last-child)::after { content: '→'; position: absolute; right: -1.1rem; top: -.85rem; color: #087f73; background: white; padding: 0 .3rem; }
+.pipeline-steps li > span { color: #087f73; font-family: var(--font-geist-mono), monospace; font-size: .75rem; }
+.pipeline-steps h3 { margin: .5rem 0; }
+.pipeline-steps p { font-size: .85rem; color: #647582; line-height: 1.6; }
+.overview-rates { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; }
+.overview-rates article { padding: 1rem 0; min-width: 0; }
+.overview-rates h3 { font-size: .85rem; }
+.overview-rates strong { font-size: 2.4rem; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+.overview-rates p { font-size: .8rem; margin: .3rem 0; }
+.overview-rates small { color: #647582; }
+.overview-rates .source-path { display: block; margin-top: .75rem; }
+@media (max-width: 900px) {
+  .overview-intro { grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem; }
+  .overview-intro aside { padding-left: 0; border-left: 0; border-top: 1px solid #e3e9ed; }
+  .pipeline-steps, .overview-rates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pipeline-steps li::after { display: none; }
+}
+@media (max-width: 480px) { .pipeline-steps, .overview-rates { grid-template-columns: 1fr; } }

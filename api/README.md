@@ -32,6 +32,23 @@ are bounded to 32 entries; batch archives to eight jobs. These caches are tempor
 Restarting the API expires report and batch links. A batch currently packages saved
 evaluation images only; it does not launch a whole-patient diffusion job.
 
+The persistent `api/demo_bundle/` is an exception to session expiry: 20 selected
+slices have complete results for both paper presets and matching null edits.
+`python -m api.build_demo` creates it from saved B3 arrays and CPU probabilities,
+with denoising explicitly disabled. Exact-request replay returns before model
+loading, checkpoint checks or inference. Its report cards also survive restarts.
+It is a frozen snapshot, not a cache for newly generated edits. Changing the
+checkpoint or the research protocol requires a separately versioned bundle.
+`start_demo.bat` sets `MRONE_DEMO_ONLY=1`; uncached requests then return 409.
+The slice catalogue exposes per-axis paper seeds and the selected demo IDs.
+Histograms use a shared source foreground mask (intensity >0.01); other image
+metrics retain their existing full-image definition. UI display labels and
+rounding do not change stored CSV values.
+
+`python -m api.verify_demo --output reports/<new_folder>` exercises all 80 saved
+requests through the Next.js proxy. `python -m api.package_demo --output
+demo/<new_archive>.zip` makes a transfer archive without diffusion checkpoints.
+
 Uploads accept a single 2D DICOM or PNG (10 MB maximum), reuse the existing
 preprocessing, and live in a bounded memory-only store (32 sources). DICOM source
 conditions come from metadata; PNG requires user-supplied source conditions and

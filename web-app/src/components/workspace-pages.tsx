@@ -51,13 +51,11 @@ import {
   useResource,
 } from "./shared";
 import ResearchCharts from "./research-charts";
+import { readable, tableValue } from "@/lib/labels";
 
 const DEFAULT_SET = "main_field_strength_t100_w5_s0";
 function prettySet(name: string) {
-  return name
-    .replaceAll("_", " ")
-    .replace("field strength", "FS")
-    .replace("manufacturer", "Vendor");
+  return readable(name);
 }
 
 export function Evidence() {
@@ -115,7 +113,7 @@ export function Evidence() {
         >
           {variants.map((v) => (
             <MenuItem key={v} value={v}>
-              {v}
+              {readable(v)}
             </MenuItem>
           ))}
         </TextField>
@@ -219,7 +217,7 @@ export function Evidence() {
                   src={`/api/evidence/${set}/${current.index}/image?variant=source_images`}
                 />
                 <Scan
-                  title={variant === "cf" ? "Diffusion edit" : variant}
+                  title={readable(variant)}
                   subtitle={`Example ${current.index}`}
                   src={`/api/evidence/${set}/${current.index}/image?variant=${variant}`}
                 />
@@ -322,7 +320,7 @@ export function Results() {
           <div>
             <h2>Who confirms the counterfactual?</h2>
             <p className="panel-intro">
-              Compare the development predictor with independently trained,
+              Compare the original predictor with independently trained,
               held-out judges.
             </p>
           </div>
@@ -350,7 +348,7 @@ export function Results() {
               {!result.data && <MenuItem value="">Loading methods…</MenuItem>}
               {methods.map((m) => (
                 <MenuItem value={m} key={m}>
-                  {m === "cf" ? "Diffusion" : m}
+                  {readable(m)}
                 </MenuItem>
               ))}
             </TextField>
@@ -394,6 +392,7 @@ export function Results() {
                 }}
               />
               <Bar
+                isAnimationActive={false}
                 dataKey="value"
                 fill="#087f73"
                 barSize={26}
@@ -497,7 +496,7 @@ function ResearchData() {
               <thead>
                 <tr>
                   {columns.map((c) => (
-                    <th key={c}>{c.replaceAll("_", " ")}</th>
+                    <th key={c}>{readable(c)}</th>
                   ))}
                 </tr>
               </thead>
@@ -505,7 +504,7 @@ function ResearchData() {
                 {result.data.items.map((r, i) => (
                   <tr key={i}>
                     {columns.map((c) => (
-                      <td key={c}>{r[c]}</td>
+                      <td key={c}>{tableValue(r[c])}</td>
                     ))}
                   </tr>
                 ))}

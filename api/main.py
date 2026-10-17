@@ -19,6 +19,7 @@ from fastapi.responses import FileResponse, Response, StreamingResponse
 from pydantic import BaseModel, ConfigDict, Field
 
 from api import data
+from api import demo_cache
 from api.metrics import analyse, verdict
 from api.models import INFERENCE_LOCK, MODEL_PATHS, classifiers, editor, probabilities, sample
 
@@ -55,7 +56,7 @@ def health():
     return dict(status="ok", device="cuda" if torch.cuda.is_available() else "cpu",
                 slices=len(data.slices()), patients=len({s["patient"] for s in data.slices()}),
                 models={k: p.exists() for k, p in MODEL_PATHS.items()}, evidence_sets=len(data.evidence_sets()),
-                research_only=True)
+                research_only=True, demo_only=demo_cache.demo_only(), demo_slices=len(demo_cache.manifest()["slices"]))
 
 
 @app.get("/paper")
@@ -72,7 +73,11 @@ def slices(patient: str | None = None, manufacturer: int | None = None, field_st
              and (manufacturer is None or s["manufacturer"] == manufacturer)
              and (field_strength is None or s["field_strength"] == field_strength)]
     recommended = str(data.pack("main_field_strength_t100_w5_s0")["indices"][0]) if data.evidence_sets() else (items[0]["id"] if items else None)
-    return dict(items=items, total=len(items), patients=sorted({s["patient"] for s in data.slices()}), recommended_id=recommended)
+    demo_ids = [s["id"] for s in demo_cache.manifest()["slices"]]
+    if demo_ids:
+        recommended = demo_cache.recommended_id()
+    return dict(items=items, total=len(items), patients=sorted({s["patient"] for s in data.slices()}), recommended_id=recommended,
+                demo_ids=demo_ids, demo_only=demo_cache.demo_only())
 
 
 @app.get("/slice/{slice_id}")
@@ -87,23 +92,32 @@ def slice_image(slice_id: str):
 
 
 def saved_edit(req, source):
-    if req.model != "converged" or req.null_edit or not req.slice_id.isdigit():
+    if req.model != "converged" or not req.slice_id.isdigit():
         return None
     changed = [k for k in ("manufacturer", "field_strength") if getattr(req, k) != source[k]]
     if len(changed) != 1:
         return None
     axis = changed[0]
     for name in data.evidence_sets():
-        if not name.startswith(f"main_{axis}_t{req.timestep}_w{req.guidance:g}_s"):
+        if not name.startswith(f"{'soundness' if req.null_edit else 'main'}_{axis}_t{req.timestep}_w{req.guidance:g}_s"):
             continue
         z = data.pack(name)
         match = np.where(z["indices"] == int(req.slice_id))[0]
         if len(match) and req.seed == 42 + int(match[0]) + int(name.rsplit("_s", 1)[1]):
-            return z["cf"][int(match[0])], data.relative(data.B3 / name / "images.npz")
+            return z["null1" if req.null_edit else "cf"][int(match[0])], data.relative(data.B3 / name / "images.npz")
     return None
 
 
 def run_edit(req, emit=lambda event: None):
+    replay = demo_cache.lookup(req) if req.use_cache else None
+    if replay:
+        with CACHE_LOCK:
+            CACHE[replay["id"]] = replay
+            while len(CACHE) > 32:
+                CACHE.popitem(last=False)
+        return replay
+    if demo_cache.demo_only():
+        raise ValueError("Replay mode: choose a saved demo slice with an epoch-110 paper preset and its paper seed. Live inference is disabled.")
     source = data.slice_info(req.slice_id)
     before = data.source_image(req.slice_id)
     target_mfg = source["manufacturer"] if req.null_edit else req.manufacturer
@@ -167,6 +181,8 @@ async def upload(file: UploadFile = File(...), manufacturer: int | None = Form(N
 @app.post("/edit")
 async def edit(req: EditRequest):
     require_slice(req.slice_id)
+    if demo_cache.demo_only() and (not req.use_cache or demo_cache.lookup(req) is None):
+        raise HTTPException(409, "Replay mode: choose a saved demo slice, epoch 110, a paper preset and its paper seed. Live inference is disabled.")
     loop = asyncio.get_running_loop()
     queue = asyncio.Queue(maxsize=32)
     def emit(event):
@@ -333,7 +349,11 @@ def report(result_id: str, format: Literal["json", "png", "pdf"] = "json"):
     with CACHE_LOCK:
         result = CACHE.get(result_id)
     if result is None:
-        raise HTTPException(404, "Result expired; rerun the edit")
+        filename = demo_cache.manifest().get("result_ids", {}).get(result_id)
+        if filename:
+            result = json.loads((demo_cache.CACHE_DIR / filename).read_text(encoding="utf-8"))
+        else:
+            raise HTTPException(404, "Result expired; rerun the edit")
     if format == "json":
         content, mime = json.dumps(result, indent=2, allow_nan=False), "application/json"
     else:

@@ -27,10 +27,15 @@ def csv_rows(path):
 
 @lru_cache(maxsize=1)
 def slices():
+    seeds = {}
+    for name in ("main_field_strength_t100_w5_s0", "main_manufacturer_t300_w3_s0"):
+        if name in evidence_sets():
+            for position, index in enumerate(pack(name)["indices"]):
+                seeds.setdefault(int(index), {})["fs" if "field_strength" in name else "mfg"] = 42 + position
     return [dict(id=str(i), patient=r["patient_id"], manufacturer=int(r["manufacturer_label"]),
                  field_strength=int(r["field_strength_label"]), echo=float(r["echo_time_norm"]),
                  echo_ms=float(r["echo_time"]), instance=int(float(r["instance_number"])),
-                 path=r["image_path"].replace("\\", "/"), source=relative(TEST))
+                 path=r["image_path"].replace("\\", "/"), source=relative(TEST), paper_seeds=seeds.get(i, {}))
             for i, r in enumerate(csv_rows(TEST))]
 
 

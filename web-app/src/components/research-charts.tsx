@@ -122,6 +122,7 @@ function EpochChart({ rows }: { rows: Headline[] }) {
           />
           <Tooltip content={<SourceTooltip />} />
           <Bar
+            isAnimationActive={false}
             dataKey="value"
             name="Target hit rate"
             fill="#087f73"
@@ -212,6 +213,7 @@ function Tradeoff({ axis }: { axis: string }) {
             />
             <Tooltip content={<SourceTooltip />} />
             <Scatter
+              isAnimationActive={false}
               name={judge}
               data={result.data.items.filter((r) => r.judge === judge)}
               fill="#087f73"
@@ -280,12 +282,13 @@ function Variance({ axis }: { axis: string }) {
               />
               <Legend wrapperStyle={{ fontSize: 10 }} />
               <Bar
+                isAnimationActive={false}
                 dataKey="g0"
                 name="Generation seed offset 0"
                 fill="#087f73"
               />
-              <Bar dataKey="g1" name="Offset 10000" fill="#69a69c" />
-              <Bar dataKey="g2" name="Offset 20000" fill="#a8c8c1" />
+              <Bar isAnimationActive={false} dataKey="g1" name="Offset 10000" fill="#69a69c" />
+              <Bar isAnimationActive={false} dataKey="g2" name="Offset 20000" fill="#a8c8c1" />
             </BarChart>
           </ResponsiveContainer>
           <SourcePath path={result.data.source} />
@@ -348,6 +351,7 @@ function HighFrequency() {
                 }}
               />
               <Bar
+                isAnimationActive={false}
                 dataKey="value"
                 name="Target / null HF energy"
                 fill="#087f73"

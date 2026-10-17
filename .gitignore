@@ -86,3 +86,6 @@ env/
 web-app/node_modules/
 web-app/dist/
 web-app/.next/
+
+# Transfer archives are local demo assets, not source files.
+demo/**/*.zip

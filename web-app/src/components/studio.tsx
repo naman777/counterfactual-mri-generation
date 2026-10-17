@@ -74,7 +74,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
   const [fs, setFs] = useState(1 - initial.field_strength);
   const [t, setT] = useState(100);
   const [w, setW] = useState(5);
-  const [seed, setSeed] = useState(42);
+  const [seed, setSeed] = useState(initial.paper_seeds?.fs ?? 42);
   const [model, setModel] = useState("converged");
   const [result, setResult] = useState<EditResult>();
   const [nullResult, setNullResult] = useState<EditResult>();
@@ -88,15 +88,23 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
   const [wipe, setWipe] = useState(50);
   const [useCache, setUseCache] = useState(true);
   const [uploads, setUploads] = useState<Slice[]>([]);
+  const [demoOnly, setDemoOnly] = useState(catalogue.demo_only ?? false);
 
   function chooseSlice(s: Slice) {
+    const manufacturerPreset = t === 300 && w === 3 && mfg !== source.manufacturer && fs === source.field_strength;
     setSource(s);
-    setMfg(s.manufacturer);
-    setFs(1 - s.field_strength);
+    setMfg(manufacturerPreset ? 1 - s.manufacturer : s.manufacturer);
+    setFs(manufacturerPreset ? s.field_strength : 1 - s.field_strength);
+    setT(manufacturerPreset ? 300 : 100);
+    setW(manufacturerPreset ? 3 : 5);
+    setSeed(s.paper_seeds?.[manufacturerPreset ? "mfg" : "fs"] ?? 42);
+    setAxis(manufacturerPreset ? "mfg" : "fs");
     setResult(undefined);
     setNullResult(undefined);
     setFrame(undefined);
     setError("");
+    setStatus("");
+    setProgress(0);
   }
   async function run(nullEdit = false) {
     const req: EditRequest =
@@ -114,7 +122,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
           };
     setBusy(true);
     setError("");
-    setStatus("Submitting to the local inference worker");
+    setStatus(catalogue.demo_only ? "Loading saved demo evidence" : "Submitting to the local inference worker");
     setProgress(0);
     setFrame(undefined);
     if (!nullEdit) {
@@ -129,13 +137,15 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
           if (!nullEdit) setFrame(event.image);
         }
         if (event.type === "result" && event.result) {
+          if (!nullEdit && event.result.changed.length === 1)
+            setAxis(event.result.changed[0] as "mfg" | "fs");
           if (nullEdit) setNullResult(event.result);
           else setResult(event.result);
           setProgress(100);
           setStatus(
             nullEdit
               ? "Same-noise null comparison complete"
-              : "Edit and independent verification complete",
+              : event.result.cached ? "Saved edit and verification loaded" : "Edit and independent verification complete",
           );
         }
       });
@@ -177,6 +187,13 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
         <span className="strip-end">Patient-disjoint test split</span>
       </div>
       <ResourceError message={error} />
+      {!!catalogue.demo_ids?.length && (
+        <Alert severity="info" sx={{ mb: 2 }}>
+          Saved demo: {catalogue.demo_ids.length} selected slices, both paper presets and their same-noise null edits. Results are labelled as saved evidence.
+          <FormControlLabel control={<Checkbox checked={demoOnly} onChange={(e) => setDemoOnly(e.target.checked)} />} label="Show demo slices only" />
+          {catalogue.demo_only && <span>Replay mode is active. Uncached edits are blocked.</span>}
+        </Alert>
+      )}
       {settingsChanged && (
         <Alert severity="info" sx={{ mb: 2 }}>
           Controls have changed. The displayed result uses t=
@@ -198,7 +215,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
               <SlicePicker
                 catalogue={{
                   ...catalogue,
-                  items: [...uploads, ...catalogue.items],
+                  items: [...uploads, ...catalogue.items.filter((s) => !demoOnly || catalogue.demo_ids?.includes(s.id))],
                   patients: uploads.length
                     ? ["Local upload", ...catalogue.patients]
                     : catalogue.patients,
@@ -228,7 +245,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
                   select
                   size="small"
                   value={mfg}
-                  onChange={(e) => setMfg(Number(e.target.value))}
+                  onChange={(e) => { setMfg(Number(e.target.value)); setAxis("mfg"); }}
                 >
                   <MenuItem value={0}>GE</MenuItem>
                   <MenuItem value={1}>Siemens</MenuItem>
@@ -238,7 +255,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
                   select
                   size="small"
                   value={fs}
-                  onChange={(e) => setFs(Number(e.target.value))}
+                  onChange={(e) => { setFs(Number(e.target.value)); setAxis("fs"); }}
                 >
                   <MenuItem value={0}>1.5 T</MenuItem>
                   <MenuItem value={1}>3.0 T</MenuItem>
@@ -260,9 +277,9 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
                 select
                 size="small"
                 value={
-                  t === 100 && w === 5
+                  t === 100 && w === 5 && mfg === source.manufacturer && fs !== source.field_strength
                     ? "fs"
-                    : t === 300 && w === 3
+                    : t === 300 && w === 3 && mfg !== source.manufacturer && fs === source.field_strength
                       ? "mfg"
                       : "custom"
                 }
@@ -272,12 +289,16 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
                     setW(5);
                     setMfg(source.manufacturer);
                     setFs(1 - source.field_strength);
+                    setAxis("fs");
+                    setSeed(source.paper_seeds?.fs ?? 42);
                   }
                   if (e.target.value === "mfg") {
                     setT(300);
                     setW(3);
                     setMfg(1 - source.manufacturer);
                     setFs(source.field_strength);
+                    setAxis("mfg");
+                    setSeed(source.paper_seeds?.mfg ?? 42);
                   }
                 }}
               >
@@ -363,7 +384,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
             >
               {busy ? "Working…" : "Generate counterfactual"}
             </Button>
-            <p className="run-note">Local inference · independently verified</p>
+            <p className="run-note">{catalogue.demo_only ? "Saved replay · no GPU inference" : "Local inference · independently verified"}</p>
           </fieldset>
         </section>
         <section className="viewer-column">
@@ -444,7 +465,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
               <span className={`status-dot ${result ? "online" : ""}`} />
               {status ||
                 "Ready. Choose an acquisition target and generate an edit."}
-              {result && <code>{result.seconds.toFixed(1)} s</code>}
+              {result && <code>{result.cached ? "Saved" : `${result.seconds.toFixed(1)} s`}</code>}
             </div>
             {busy && (
               <LinearProgress
@@ -497,6 +518,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
                   </div>
                   <div className="histogram">
                     <h3>Intensity distribution</h3>
+                    <small className="muted">{result.metrics.histogram_note}</small>
                     <ResponsiveContainer width="100%" height={145}>
                       <AreaChart data={result.metrics.histogram}>
                         <CartesianGrid vertical={false} stroke="#e9eef1" />
@@ -506,11 +528,12 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
                           domain={[0, 1]}
                           ticks={[0, 0.25, 0.5, 0.75, 1]}
                           tick={{ fontSize: 9 }}
-                          tickFormatter={(v) => Number(v).toFixed(1)}
+                          tickFormatter={(v) => Number(v).toFixed(2)}
                         />
                         <YAxis hide />
                         <Tooltip />
                         <Area
+                          isAnimationActive={false}
                           name="Source pixels"
                           type="monotone"
                           dataKey="source"
@@ -519,6 +542,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
                           fillOpacity={0.1}
                         />
                         <Area
+                          isAnimationActive={false}
                           name="Edited pixels"
                           type="monotone"
                           dataKey="edited"
@@ -562,7 +586,7 @@ function StudioReady({ catalogue }: { catalogue: Catalogue }) {
               onChange={(_, v) => v && setAxis(v)}
             >
               <ToggleButton value="fs">Field strength</ToggleButton>
-              <ToggleButton value="mfg">Vendor</ToggleButton>
+              <ToggleButton value="mfg">Manufacturer</ToggleButton>
             </ToggleButtonGroup>
             {result ? (
               <>

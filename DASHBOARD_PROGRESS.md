@@ -1,5 +1,57 @@
 # MR-one dashboard progress
 
+## Small polish and live-mode readiness (2026-10-17)
+
+- Histogram ticks show 0.25/0.75 correctly. Table integers retain their whole
+  form (including seed 0), while non-integers keep two decimals.
+- `demo/**/*.zip` is ignored; the existing archive is untracked and excluded.
+- Studio opens on Patient 880, slice 25, seed 64, a saved 3/3 held-out case.
+  Patient 061, slice 47 remains available for the disagreement demonstration.
+- The demo script now recommends `start_demo.bat -Live`, an uncached warm-up
+  before presenting, and plain replay as the fallback. Real screen recording was
+  cancelled by the user. Timed team rehearsal and Dr. Nijhawan's review remain open.
+- Targeted lint and production build pass. Formatting assertions and the saved
+  opener contract pass. Live-mode HTTP verification loaded the saved opener,
+  then completed one uncached t=200 edit with 13 real intermediate frames.
+  Receipt: `api/runtime/polish_live_check_20261017.json` (ignored local QA).
+  The live API remains running with the model loaded for this session.
+  Research results and checkpoints are unchanged; no commit was made.
+
+## Dashboard fixes and demo preparation (2026-10-17)
+
+- [x] Per-axis paper seeds come from the saved evaluation index order. Every
+  evaluation slice can match its saved preset; changing slices preserves the
+  active paper axis and clears old status. Presets also select verification axis.
+- [x] Human-readable method/set/metric labels, two-decimal research table values,
+  one “original predictor” name, and source-foreground histograms (same mask for
+  both images). Research arrays, CSVs and full-image metrics are unchanged.
+- [x] Persistent 20-slice/80-request replay bundle, covering all 16 test patients
+  and different judge outcomes. Both paper axes and their same-noise nulls replay
+  without any model loading. Exact-request matching rejects other settings in
+  replay mode. Saved report exports survive API restarts.
+- [x] `start_demo.bat` starts both servers, waits for readiness, opens Overview
+  and defaults to replay. It prefers a production build and detects API mode
+  mismatch. `-Live` explicitly allows uncached inference.
+- [x] Overview at `/`, Studio at `/studio`; problem, research users, pipeline and
+  source-backed epoch-110 rates with patient-clustered CIs.
+- [x] Actual screenshots, a captioned silent saved-screen backup walkthrough,
+  a transfer bundle and an updated deck copy. Assets: `demo/20261017/`; deck at
+  `../presentation/dashboard-update-20261017/` (original kept intact).
+- [ ] Second-laptop rehearsal. User confirmed no second laptop is available.
+
+Validation: ESLint and production build pass; 11 backend checks pass, including
+all evaluation-slice seed matches, the shared histogram mask and every persistent
+replay with editor/classifier calls patched to fail. All 80 HTTP replays match
+their saved metrics/probabilities exactly through the Next.js proxy; uncached
+requests are blocked and JSON/PNG/PDF report exports pass. Receipt:
+`reports/v4_dashboard_demo_20261017_01/replay_http.json`. Browser checks cover
+both presets, a non-default paper seed, readable evidence/results, null control
+and a completed patient ZIP. No browser warnings/errors in the final session.
+No GPU sampling, cloud spending or research headline changes in this task.
+Chart entry animations are disabled so quick inspection/recording shows final
+bar and curve values. The supplied presentation's existing proposal/work-plan
+slides remain in the new copy; the four dashboard additions do not rewrite them.
+
 Started 2026-10-16. This is the implementation log for the six-page workbench plan.
 Research outputs and checkpoints are read-only inputs. EchoTime stays fixed.
 
@@ -21,7 +73,8 @@ Research outputs and checkpoints are read-only inputs. EchoTime stays fixed.
 - [x] Phase 4 first increment: DICOM/PNG upload with explicit domain warnings, saved-patient batch ZIP and model card.
 - [ ] Phase 4 remaining: queue **new live** edits for all slices of a patient (current exports use saved evaluation slices).
 - [x] Phase 5 first increment: presets, loading/error states, exact B3/session caching and three-minute demo script. [`web-app/DEMO.md`]
-- [ ] Phase 5 remaining: persistent curated cache, dark mode, backup recording and second-machine rehearsal.
+- [x] Phase 5 demo additions: persistent curated cache and captioned saved-screen backup (2026-10-17).
+- [ ] Phase 5 remaining: dark mode and second-machine rehearsal (no second laptop available).
 
 ## Verification / commits
 
@@ -58,7 +111,7 @@ Research outputs and checkpoints are read-only inputs. EchoTime stays fixed.
 
 ## Continue here
 
-First local prototype complete. Next priorities: persistent jobs/cache,
-whole-patient live generation queue, dark mode, demo recording and second-machine
-rehearsal. Cloud/public deployment and Groq/history remain optional and have not
-been started. Commits are local; nothing has been pushed or published.
+The replay demo, launcher, Overview and presentation additions are complete.
+Next priorities: a second-machine rehearsal when a laptop is available, then the
+lower-priority whole-patient live queue and dark mode. Cloud/public deployment
+and Groq/history remain optional. Nothing has been pushed or published.

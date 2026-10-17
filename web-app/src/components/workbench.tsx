@@ -21,6 +21,7 @@ import {
 import { Health } from "@/lib/api";
 import { useResource } from "./shared";
 import Studio from "./studio";
+import Overview from "./overview";
 import { Evidence, Results, Robustness, Batch, About } from "./workspace-pages";
 
 const theme = createTheme({
@@ -52,9 +53,10 @@ const theme = createTheme({
   },
 });
 const nav = [
+  { id: "overview", href: "/", label: "Research Overview", short: "Overview", icon: InfoOutlined },
   {
     id: "studio",
-    href: "/",
+    href: "/studio",
     label: "Counterfactual Studio",
     short: "Studio",
     icon: ScienceOutlined,
@@ -164,7 +166,7 @@ export default function Workbench({ page }: { page: string }) {
                 icon={<MemoryOutlined />}
                 label={
                   health
-                    ? `${health.device.toUpperCase()} · local`
+                    ? health.demo_only ? "Saved replay · local" : `${health.device.toUpperCase()} · local`
                     : "Local workspace"
                 }
               />
@@ -177,7 +179,7 @@ export default function Workbench({ page }: { page: string }) {
                 <div className="eyebrow">GENERATE. INSPECT. VERIFY.</div>
                 <h1>{current.label}</h1>
                 <p>
-                  {page === "studio"
+                  {page === "overview" ? "The research question, the editing workflow and what the evidence supports." : page === "studio"
                     ? "Change the acquisition condition. Keep the evidence in view."
                     : page === "evidence"
                       ? "Inspect saved evaluations, one slice and one judge at a time."
@@ -202,7 +204,7 @@ export default function Workbench({ page }: { page: string }) {
                 data and models. No example metrics are substituted.
               </Alert>
             )}
-            {page === "studio" ? (
+            {page === "overview" ? <Overview /> : page === "studio" ? (
               <Studio />
             ) : page === "evidence" ? (
               <Evidence />

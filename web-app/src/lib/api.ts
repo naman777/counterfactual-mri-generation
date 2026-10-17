@@ -1,4 +1,5 @@
 export type Slice = {
+  paper_seeds?: { fs?: number; mfg?: number };
   warnings?: string[];
   id: string;
   patient: string;
@@ -10,11 +11,14 @@ export type Slice = {
   source: string;
 };
 export type Catalogue = {
+  demo_ids?: string[];
+  demo_only?: boolean;
   items: Slice[];
   patients: string[];
   recommended_id: string;
 };
 export type Health = {
+  demo_only?: boolean;
   status: string;
   device: string;
   slices: number;
@@ -50,6 +54,7 @@ export type EditResult = {
     hf_before: number;
     hf_after: number;
     histogram: { intensity: number; source: number; edited: number }[];
+    histogram_note?: string;
     images: {
       source: string;
       edited: string;
@@ -132,7 +137,7 @@ export async function streamEdit(
     body: JSON.stringify(request),
   });
   if (!response.ok || !response.body)
-    throw new Error(`Edit request failed (${response.status})`);
+    throw new Error(await response.json().then((body) => body.detail).catch(() => `Edit request failed (${response.status})`));
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
   let buffer = "";

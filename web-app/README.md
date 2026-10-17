@@ -6,6 +6,13 @@ them. Research use only; not for diagnosis.
 
 ## Run on the laptop
 
+For the panel demo, run `start_demo.bat -Live` from the code root. This opens the
+Overview and supports uncached requests alongside saved results. Warm the model
+with one live edit before presenting. The recommended Studio opener is Patient
+880, slice 25 (3/3 held-out judges at the field-strength paper preset). Plain
+`start_demo.bat` remains the saved-replay fallback if the GPU fails. Stop the
+running API before switching modes. See `DEMO.md` for the timed script and checklist.
+
 Terminal 1, from `counterfactual-mri-generation/`, using the system Python:
 
 ```powershell
@@ -20,13 +27,14 @@ pnpm install --frozen-lockfile
 pnpm dev --hostname 127.0.0.1
 ```
 
-Open http://127.0.0.1:3000. The app proxies `/api/*` to the local Python service;
+Open http://localhost:3000. The app proxies `/api/*` to the local Python service;
 set `MRONE_API_URL` before starting Next.js to change that destination. There are
 no external services or credentials to configure. Keep the API on loopback.
 
 ## Pages
 
-- `/`: Studio with manifest filters, PNG/DICOM input, fixed source EchoTime,
+- `/`: Overview with problem, research users, pipeline and source-backed rates/CIs.
+- `/studio`: Studio with manifest filters, PNG/DICOM input, fixed source EchoTime,
   epoch-110 EMA / epoch-10 selector, live denoising frames, maps, histogram,
   wipe comparison, four classifier panels and same-noise null comparison.
 - `/evidence`: all saved B3 evaluation sets/variants, patient/direction/verdict
@@ -38,7 +46,7 @@ no external services or credentials to configure. Keep the API on loopback.
   filtered by patient and judge agreement.
 - `/about`: intended use, limitations, team, checkpoints and the local IEEE paper.
 
-Turn off **Use saved results when available** to force live diffusion. Otherwise
+In live mode, turn off **Use saved results when available** to force diffusion. Otherwise
 an exact matching B3 edit or session cache may be used, with a visible chip. The
 cache never labels playback as live denoising. A null run uses the completed edit's
 source, t, w, seed and model, even if the controls have since changed.
@@ -58,7 +66,7 @@ outside this dashboard's commits. A fresh clone needs those inputs provisioned.
 pnpm exec tsc --noEmit
 pnpm build
 # From the code root
-python -m unittest api.test_contract -v
+python -m unittest api.test_contract api.test_dashboard_fixes -v
 python -m api.smoke
 ```
 
