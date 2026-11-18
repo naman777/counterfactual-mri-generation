@@ -7,6 +7,24 @@ Wraps all explainability functions into one class:
   - Local SSIM map
   - Histogram comparison
   - Predictor shift (before/after/gain)
+  - Counterfactual Quality Score (CQS)  [P1.1]
+  - Control Axis Difficulty Index (CADI) [P1.1]
+
+P1.1 Formalized Explainability Framework
+-----------------------------------------
+Counterfactual Quality Score (CQS):
+    CQS(x, x_cf, c_target) = α·SSIM(x, x_cf) + β·Gain(x_cf, c_target) + γ·Stability(x_cf)
+
+    Where:
+      SSIM     — anatomy preservation [0, 1]
+      Gain     — target alignment (predictor shift toward target condition) [0, 1]
+      Stability — cross-axis preservation (unchanged axes don't drift) [0, 1]
+      α, β, γ  — tunable weights (default: equal weighting = 1/3 each)
+
+Control Axis Difficulty Index (CADI):
+    CADI(a) = HitRate(a) × MeanGain(a) / MeanMAD(a)
+
+    Higher = easier to control. Negative = unreliable axis.
 
 Usage:
     engine = ExplainabilityEngine(
@@ -14,6 +32,12 @@ Usage:
         label_maps_dir="data/processed/ax_t1_128/label_maps/",
     )
     results = engine.compute_all(original, counterfactual, source_cond, target_cond)
+    cqs     = engine.compute_cqs(results)  # single-example quality score
+
+    # Across many examples:
+    cadi = ExplainabilityEngine.compute_cadi(
+        hit_rate=0.75, mean_gain=0.759, mean_mad=0.027
+    )
 """
 
 from __future__ import annotations
@@ -356,6 +380,102 @@ class ExplainabilityEngine:
         }
 
         return results
+
+    # ─── P1.1: Formalized Explainability Framework ────────────────────────────
+
+    @staticmethod
+    def compute_cqs(
+        results: Dict,
+        alpha: float = 1 / 3,
+        beta: float = 1 / 3,
+        gamma: float = 1 / 3,
+        control: str = "field_strength",
+    ) -> Dict:
+        """
+        Compute the Counterfactual Quality Score (CQS) for one example.
+
+        CQS = α·SSIM + β·NormGain + γ·Stability
+
+        Args:
+            results:  Output dict from ``compute_all()``.
+            alpha:    Weight for SSIM (anatomy preservation). Default 1/3.
+            beta:     Weight for gain (target alignment). Default 1/3.
+            gamma:    Weight for stability (cross-axis). Default 1/3.
+            control:  Which axis was edited.
+                      One of 'field_strength', 'manufacturer', 'echo_time'.
+
+        Returns:
+            dict with keys:
+                ssim_component, gain_component, stability_component, cqs
+        """
+        # 1. SSIM component — already in [0, 1]
+        ssim_val = float(results["global_ssim"])
+        ssim_component = max(0.0, min(1.0, ssim_val))
+
+        # 2. Gain component — normalise to [0, 1]
+        #    For categorical axes: gain ∈ [−1, 1] → shift to [0, 1]
+        #    For echo time: echo_improvement (can be negative) → clip to [0, 1]
+        gain = results["predictor_gain"]
+        if control == "field_strength":
+            raw_gain = gain["fs_gain"]
+        elif control == "manufacturer":
+            raw_gain = gain["mfg_gain"]
+        elif control == "echo_time":
+            raw_gain = gain["echo_improvement"]
+        else:
+            raw_gain = 0.0
+        # Map [−1, +1] → [0, 1]
+        gain_component = max(0.0, min(1.0, (float(raw_gain) + 1.0) / 2.0))
+
+        # 3. Stability component — fraction of unchanged axes that stayed stable
+        stability = results["stability"]
+        stable_checks = []
+        if not stability["mfg_was_edited"]:
+            stable_checks.append(1.0 if stability["mfg_stable"] else 0.0)
+        if not stability["fs_was_edited"]:
+            stable_checks.append(1.0 if stability["fs_stable"] else 0.0)
+        stability_component = float(sum(stable_checks) / len(stable_checks)) \
+            if stable_checks else 1.0  # if everything was edited, no penalty
+
+        # 4. Weighted sum
+        cqs = alpha * ssim_component + beta * gain_component + gamma * stability_component
+
+        return {
+            "ssim_component":       ssim_component,
+            "gain_component":       gain_component,
+            "stability_component":  stability_component,
+            "alpha":                alpha,
+            "beta":                 beta,
+            "gamma":                gamma,
+            "cqs":                  float(cqs),
+            "control":              control,
+        }
+
+    @staticmethod
+    def compute_cadi(
+        hit_rate: float,
+        mean_gain: float,
+        mean_mad: float,
+    ) -> float:
+        """
+        Compute the Control Axis Difficulty Index (CADI) for one control axis.
+
+        CADI(a) = HitRate(a) × MeanGain(a) / MeanMAD(a)
+
+        Higher CADI = easier to control.
+        Negative CADI = unreliable axis (gain is negative on average).
+
+        Args:
+            hit_rate:  Fraction of examples where predictor switches to target [0, 1].
+            mean_gain: Average predictor gain across all examples.
+            mean_mad:  Average mean absolute difference (pixel-level change).
+
+        Returns:
+            float: CADI value
+        """
+        if mean_mad <= 0:
+            return 0.0
+        return float((hit_rate * mean_gain) / mean_mad)
 
     def results_to_json_serializable(self, results: Dict) -> Dict:
         """
