@@ -1,0 +1,10 @@
+/checkpoints/**/*.ckpt filter=lfs diff=lfs merge=lfs -text
+/checkpoints/**/*.onnx filter=lfs diff=lfs merge=lfs -text
+/checkpoints/**/*.pt filter=lfs diff=lfs merge=lfs -text
+/checkpoints/**/*.pth filter=lfs diff=lfs merge=lfs -text
+/checkpoints/**/*.safetensors filter=lfs diff=lfs merge=lfs -text
+/reports/**/*.ckpt filter=lfs diff=lfs merge=lfs -text
+/reports/**/*.onnx filter=lfs diff=lfs merge=lfs -text
+/reports/**/*.pt filter=lfs diff=lfs merge=lfs -text
+/reports/**/*.pth filter=lfs diff=lfs merge=lfs -text
+/reports/**/*.safetensors filter=lfs diff=lfs merge=lfs -text

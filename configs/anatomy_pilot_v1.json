@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "split": "val",
+  "selection_seed": 731,
+  "sampling_seed": 930000,
+  "patients": 15,
+  "selection": "one seeded random slice per validation patient; no output-based selection",
+  "checkpoint": "checkpoints/diffusion/ax_t1_128_v4/b1_20261016_01/selected_epoch_0110.pt",
+  "expected_checkpoint_sha256": "4a458821c9dc6f2234846d284ace5d75a16160d292d1205c5aca569aac8a40e4",
+  "anchor_strengths": [0.25, 0.5],
+  "lowpass_sigma_px": 2.0,
+  "settings": {
+    "field_strength": {"t": 100, "w": 5.0},
+    "manufacturer": {"t": 300, "w": 3.0}
+  },
+  "proxy_thresholds": [0.03, 0.05, 0.1],
+  "proxy_gates": {
+    "min_dice": 0.9,
+    "max_boundary_hd95_px": 3.0,
+    "max_centroid_shift_px": 2.0,
+    "max_area_fraction_change": 0.1
+  },
+  "proxy_gate_status": "predeclared engineering screen; not reader-calibrated or clinically validated",
+  "conditioning_policy": "allow flagged unsupported combinations for this exploratory offline experiment only; EchoTime stays fixed",
+  "statistics": {"bootstrap_resamples": 10000, "bootstrap_seed": 731},
+  "human_preservation": "pending independent annotations and blinded review; never inferred from proxy masks",
+  "selection_policy": "report every candidate; do not select a winner using this pilot or call judges a fresh final test"
+}

@@ -1,0 +1,211 @@
+{
+  "format": "replicated_detail_v1",
+  "view": "data/processed/ax_t1_128_canonical/view_v1_20261116_01",
+  "parent": "checkpoints/diffusion/ax_t1_128_v8_generator_dev/precision_continuation_20261117_01_training/additive_block_0012.pt",
+  "parent_sha256": "fc1756c7776688dcfa9f41c69f41106042b8cf3b5938c53573d33e26f8cde6bb",
+  "parent_epoch": 130,
+  "backbone": "additive",
+  "training_seeds": [
+    583301,
+    583302,
+    583303
+  ],
+  "modes": [
+    "coarse_control",
+    "coarse_fine",
+    "learned_zero"
+  ],
+  "training": {
+    "epochs": 20,
+    "block_epochs": 5,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "gradient_clip": 1.0,
+    "condition_drop_probability": 0.1,
+    "structure_proxy_weight": 0.1,
+    "structure_proxy_max_timestep": 300,
+    "adapter_width": 16,
+    "max_same_batch_precision_retries": 8,
+    "guide": "6x64 coarse/coarse versus coarse/fine versus learned zero",
+    "loss": "Unchanged full-timestep noise MSE plus coarse source-guide consistency for t<=300",
+    "final_weights": "Raw common final epoch, no validation checkpoint selection",
+    "sampling": "Historical patient/cell balancing, independent seed/data/noise/drop streams",
+    "precision": "FP16 autocast plus bounded identical-draw scaler backoff; persistent failure fatal"
+  },
+  "evaluation": {
+    "selection_seed": 482902,
+    "source_slices_per_patient": 1,
+    "selection_generation_seed": 482941,
+    "confirmation_generation_seeds": [
+      482942,
+      482943
+    ],
+    "fixed_settings": {
+      "field_strength": {
+        "timestep": 100,
+        "guidance": 5.0
+      },
+      "manufacturer": {
+        "timestep": 300,
+        "guidance": 3.0
+      }
+    },
+    "selection_grid": {
+      "field_strength": {
+        "timesteps": [
+          100,
+          200
+        ],
+        "guidance": [
+          3.0,
+          5.0
+        ]
+      },
+      "manufacturer": {
+        "timesteps": [
+          200,
+          300
+        ],
+        "guidance": [
+          3.0,
+          5.0
+        ]
+      }
+    },
+    "ssim_floor": {
+      "field_strength": 0.7,
+      "manufacturer": 0.5
+    },
+    "other_axis_stability_floor": 0.9,
+    "minimum_eligible_patients_per_direction": 2,
+    "selection_support_statuses": [
+      "observed_condition",
+      "interpolation_only"
+    ],
+    "outside_range_policy": "Retain and report separately as flagged offline research; excluded from operating-point selection.",
+    "selection_rule": "Require direction coverage, patient-macro SSIM and mean-judge other-axis stability constraints; maximise mean-judge paired target-minus-null hit difference, then lower timestep, then lower guidance. Nonpositive or infeasible candidates produce no selected setting.",
+    "anatomy_validation": "unknown; SSIM constraints are provisional correspondence screens, not anatomical approval",
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 482944,
+    "judge_paths": [
+      "reports/v4_heldout_judge/b2_local_20261016_01/training/orientation_robust_seed0/judge_heldout_resnet18_seed0.pt",
+      "reports/v4_heldout_judge/b2_local_20261016_01/training/orientation_robust_seed1/judge_heldout_resnet18_seed1.pt",
+      "reports/v4_heldout_judge/b2_local_20261016_01/training/orientation_robust_seed2/judge_heldout_resnet18_seed2.pt"
+    ],
+    "judge_input_frame": "Invert each source header-derived canonical transform before grading; assessors remain frozen development instruments.",
+    "controls": [
+      "identity",
+      "matched_noise_null",
+      "target"
+    ],
+    "reporting": "Each named judge, both axes/directions, support strata, patient intervals, all failures; confirmation seeds are stability checks on the same validation patients, not a fresh test."
+  },
+  "primary_axis": "manufacturer",
+  "secondary_axis": "field_strength",
+  "controls": {
+    "manufacturer": {
+      "coarse_control": [
+        "correct",
+        "zero",
+        "absent",
+        "wrong",
+        "coarse_only",
+        "fine_only"
+      ],
+      "coarse_fine": [
+        "correct",
+        "zero",
+        "absent",
+        "wrong",
+        "coarse_only",
+        "fine_only"
+      ],
+      "learned_zero": [
+        "correct",
+        "absent"
+      ]
+    },
+    "field_strength": {
+      "coarse_control": [
+        "correct"
+      ],
+      "coarse_fine": [
+        "correct"
+      ],
+      "learned_zero": [
+        "correct"
+      ]
+    }
+  },
+  "mask_policy": {
+    "training_masking": false,
+    "evaluation_masking": false,
+    "region_mask": "noise_aware_v1, fixed constants and train-only warning cutoffs",
+    "warning_cases": "Retain every source, flag and report separately; no favourable-case exclusion",
+    "invalid_region": "Keep whole-image/judge results, set regional metrics missing; advancement unavailable if a primary region is invalid",
+    "masking_ablation": "Separate later protocol; not bundled into this guide comparison"
+  },
+  "analysis": {
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 583341,
+    "uncertainty": "Paired crossed bootstrap of patients and training seeds; generation seeds averaged within each crossed cell; per-training-seed patient intervals also required",
+    "primary_contrast": "coarse_fine minus capacity-matched coarse_control, correct guide, manufacturer, all requests retained",
+    "gates": [
+      {
+        "metric": "interior_mad",
+        "control": "target",
+        "upper_less_than": 0.0
+      },
+      {
+        "metric": "interior_hf_residual_mad",
+        "control": "target",
+        "upper_less_than": 0.0
+      },
+      {
+        "metric": "interior_mad",
+        "control": "null",
+        "upper_less_than": 0.005
+      },
+      {
+        "metric": "paired_hit_delta",
+        "control": "target",
+        "judge": "heldout_orientation_robust_seed0",
+        "lower_greater_than": -0.05
+      },
+      {
+        "metric": "paired_hit_delta",
+        "control": "target",
+        "judge": "heldout_orientation_robust_seed1",
+        "lower_greater_than": -0.05
+      },
+      {
+        "metric": "paired_hit_delta",
+        "control": "target",
+        "judge": "heldout_orientation_robust_seed2",
+        "lower_greater_than": -0.05
+      }
+    ],
+    "family_alpha": 0.05,
+    "family_size": 6,
+    "interval_quantiles": [
+      0.004166666666666667,
+      0.9958333333333333
+    ],
+    "margins": "Predeclared research tolerances: .005 normalised null-MAD and five percentage points editing; not clinical equivalence/safety margins",
+    "training_replica_rule": "All three replica point differences must favour lower target interior MAD and HF residual; all named-judge editing differences must be >=-.05 in each replica",
+    "safeguards": "Retain original direction/support and other-axis stability constraints on selection seed, evaluated per training replica; field-strength remains exploratory/infeasible if support missing",
+    "decision": "Advancement means a development research candidate for later independent confirmation, never clinical approval or default promotion",
+    "primary_missingness": "Any missing crossed cell, replica, generation seed, judge, source or primary regional metric makes the advancement decision unavailable"
+  },
+  "scope": {
+    "reused_validation": true,
+    "test_pixels_used": false,
+    "echo_time_edited": false,
+    "acquisition_invariance": false,
+    "clinical_preservation": "unknown",
+    "historical_defaults_changed": false,
+    "paid_approval": false,
+    "mask_warning_cutoffs": "reports/v9_detail/mask_audit_20261117_01/thresholds.json"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "base_config": "configs/generator_dev_v1.json",
+  "format": "generator_full_protocol_v1",
+  "training": {
+    "learning_rate": 0.0001,
+    "weight_decay": 0.00001,
+    "grad_clip_norm": 1.0,
+    "ema_decay": 0.999,
+    "mixed_precision": true,
+    "amp_gradient_retries": 8
+  },
+  "full_training": {
+    "batch_size": 32,
+    "max_epochs": 200,
+    "validation_every_epochs": 5,
+    "minimum_stop_epoch": 40,
+    "plateau_checks": 4,
+    "minimum_relative_improvement": 0.002,
+    "checkpoint_selection": "Primary comparison uses common final epoch; earliest lowest patient-macro EMA noise-loss checkpoint is secondary.",
+    "stopping": "Stop both variants at the same epoch only when both meet the frozen plateau rule, or at the maximum epoch. A resource stop is incomplete."
+  },
+  "evaluation": {
+    "selection_seed": 482902,
+    "source_slices_per_patient": 1,
+    "selection_generation_seed": 482941,
+    "confirmation_generation_seeds": [482942, 482943],
+    "fixed_settings": {
+      "field_strength": {"timestep": 100, "guidance": 5.0},
+      "manufacturer": {"timestep": 300, "guidance": 3.0}
+    },
+    "selection_grid": {
+      "field_strength": {"timesteps": [100, 200], "guidance": [3.0, 5.0]},
+      "manufacturer": {"timesteps": [200, 300], "guidance": [3.0, 5.0]}
+    },
+    "ssim_floor": {"field_strength": 0.7, "manufacturer": 0.5},
+    "other_axis_stability_floor": 0.9,
+    "minimum_eligible_patients_per_direction": 2,
+    "selection_support_statuses": ["observed_condition", "interpolation_only"],
+    "outside_range_policy": "Retain and report separately as flagged offline research; excluded from operating-point selection.",
+    "selection_rule": "Require direction coverage, patient-macro SSIM and mean-judge other-axis stability constraints; maximise mean-judge paired target-minus-null hit difference, then lower timestep, then lower guidance. Nonpositive or infeasible candidates produce no selected setting.",
+    "anatomy_validation": "unknown; SSIM constraints are provisional correspondence screens, not anatomical approval",
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 482944,
+    "judge_paths": [
+      "reports/v4_heldout_judge/b2_local_20261016_01/training/orientation_robust_seed0/judge_heldout_resnet18_seed0.pt",
+      "reports/v4_heldout_judge/b2_local_20261016_01/training/orientation_robust_seed1/judge_heldout_resnet18_seed1.pt",
+      "reports/v4_heldout_judge/b2_local_20261016_01/training/orientation_robust_seed2/judge_heldout_resnet18_seed2.pt"
+    ],
+    "judge_input_frame": "Invert each source header-derived canonical transform before grading; assessors remain frozen development instruments.",
+    "controls": ["identity", "matched_noise_null", "target"],
+    "reporting": "Each named judge, both axes/directions, support strata, patient intervals, all failures; confirmation seeds are stability checks on the same validation patients, not a fresh test."
+  },
+  "resources": {
+    "local_engineering_batch_size": 2,
+    "max_variant_wall_seconds": 3600,
+    "max_pair_checkpoint_bytes": 12884901888,
+    "max_gpus": 1,
+    "max_containers": 1,
+    "cloud_apps_at_once": 1,
+    "monetary_budget_authorised": false,
+    "cost_status": "Execution caps only; cloud price and monetary cap must be agreed before a substantial paid run."
+  },
+  "interpretation": {
+    "stage": "full_training_development_protocol",
+    "echo_time_edited": false,
+    "test_pixels_permitted": false,
+    "expert_anatomy_validated": false,
+    "limits": "Unpaired acquisition-conditioned development on existing train/validation patients. Protocol confounding remains; selection is provisional and does not validate physical interventions or pathology preservation."
+  }
+}
