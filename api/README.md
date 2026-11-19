@@ -57,7 +57,8 @@ mark unknown provenance, sequence/orientation concerns and out-of-range EchoTime
 Raw DICOM headers and patient identifiers are not persisted or returned.
 
 `/report/{id}?format=png|pdf|json` exports a deterministic evidence card or complete
-metrics. `/paper` serves the existing local v5 IEEE PDF. Robustness probes use CPU
+metrics. `/paper` serves the v11 IEEE evaluation master, shared with the demo
+packager through `api/publication.py`. Robustness probes use CPU
 only and show source-label probabilities under seeded noise and/or vertical flip.
 
 Data sources: the test split CSV; B3 `remote/full/test/*/{images.npz,metrics.csv}`;

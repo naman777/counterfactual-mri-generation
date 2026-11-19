@@ -20,6 +20,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from api import data
 from api import demo_cache
+from api.publication import PAPER_PATH, PAPER_DOWNLOAD_NAME
 from api.metrics import analyse, verdict
 from api.models import INFERENCE_LOCK, MODEL_PATHS, classifiers, editor, probabilities, sample
 
@@ -61,10 +62,10 @@ def health():
 
 @app.get("/paper")
 def paper():
-    path = data.ROOT.parent / "research-paper-v5/paper_v5_ieee.pdf"
+    path = PAPER_PATH
     if not path.exists():
-        raise HTTPException(404, "The v5 paper PDF is not available on this machine")
-    return FileResponse(path, media_type="application/pdf", filename="mrone-paper-v5.pdf")
+        raise HTTPException(404, "The current paper PDF is not available on this machine")
+    return FileResponse(path, media_type="application/pdf", filename=PAPER_DOWNLOAD_NAME)
 
 
 @app.get("/slices")
