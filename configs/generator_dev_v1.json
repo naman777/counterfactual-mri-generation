@@ -1,0 +1,56 @@
+{
+  "format": "generator_dev_protocol_v1",
+  "seed": 482901,
+  "view": "data/processed/ax_t1_128_canonical/view_v1_20261116_01",
+  "variants": ["additive", "scale_shift"],
+  "data": {"image_size": 128, "splits": ["train", "val"], "minimum_cell_patients": 5},
+  "condition": {
+    "num_manufacturers": 2,
+    "num_field_strengths": 2,
+    "manufacturer_embedding_dim": 32,
+    "field_strength_embedding_dim": 32,
+    "echo_embedding_dim": 32,
+    "condition_dim": 128,
+    "dropout_prob": 0.1
+  },
+  "model": {
+    "in_channels": 1,
+    "out_channels": 1,
+    "base_channels": 64,
+    "channel_multipliers": [1, 2, 4],
+    "time_embedding_dim": 128,
+    "condition_dim": 128,
+    "dropout": 0.1
+  },
+  "diffusion": {
+    "num_train_timesteps": 1000,
+    "beta_schedule": "linear",
+    "beta_start": 0.0001,
+    "beta_end": 0.02,
+    "prediction_type": "epsilon"
+  },
+  "training": {
+    "learning_rate": 0.0001,
+    "weight_decay": 0.00001,
+    "grad_clip_norm": 1.0,
+    "ema_decay": 0.999,
+    "mixed_precision": true
+  },
+  "smoke": {
+    "steps_per_variant": 16,
+    "batch_size": 2,
+    "validation_seed": 482902,
+    "validation_slices_per_patient": 1,
+    "inference_timestep": 2,
+    "inference_guidance": 3.0,
+    "inference_patients": 2
+  },
+  "interpretation": {
+    "stage": "engineering_smoke_not_efficacy_training",
+    "echo_time_edited": false,
+    "test_pixels_permitted": false,
+    "expert_anatomy_validated": false,
+    "operating_point_selection": "No winner or operating point selected by the smoke; full efficacy protocol remains separate.",
+    "limits": "Canonical orientation is not protocol harmonisation or causal identification. Unpaired denoising is not paired acquisition-edit supervision. Existing judges are development assessors, not a fresh final test."
+  }
+}

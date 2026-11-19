@@ -5,6 +5,8 @@ data/processed/
 data/metadata/dicom_metadata.csv
 data/metadata/clean_metadata.csv
 data/metadata/ax_t1_metadata.csv
+data/augmented/ge_to_siemens/*
+data/augmented/siemens_to_ge/*
 
 # ====== MODEL CHECKPOINTS (Keep only essential) ======
 checkpoints/diffusion/ax_t1_128_debug/

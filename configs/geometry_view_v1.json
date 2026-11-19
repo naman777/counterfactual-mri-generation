@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "splits": ["train", "val"],
+  "image_size": 128,
+  "orientation_tolerance": 0.02,
+  "target": "canonical array columns increase LPS +X; rows LPS +Y",
+  "operations": "lossless transpose/flips only, derived from each source DICOM header",
+  "unsupported": "reject invalid/missing/non-axial/oblique geometry; no label-based fallback",
+  "source_view": "lazy index referencing immutable existing arrays; no historical data rewrite",
+  "selection_seed": 731,
+  "probe_ridge_alpha": 10.0,
+  "support_min_patients": 5,
+  "support_interpretation": "engineering diagnostic only; exact EchoTime support is not causal identification",
+  "test_images_permitted": false,
+  "old_model_validated_on_new_view": false
+}

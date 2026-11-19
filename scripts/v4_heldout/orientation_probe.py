@@ -1,0 +1,85 @@
+"""Validation-only orientation sensitivity of the existing seven judges.
+
+Quick local inference, not training. No label changes under geometric transforms.
+python -m scripts.v4_heldout.orientation_probe --run-id orientation_probe_20261016_01
+"""
+import argparse
+import json
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import torch
+
+from scripts.v4_convergence.core import digest, json_write, load_pack, select_indices, judges, probabilities
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def intervals(values, patient):
+    values = np.asarray(values, dtype=float)
+    _, inverse = np.unique(patient, return_inverse=True)
+    n = inverse.max() + 1
+    sums = np.bincount(inverse, weights=values, minlength=n)
+    sizes = np.bincount(inverse, minlength=n)
+    rng = np.random.default_rng(42)
+    ids = rng.integers(n, size=(10000, n))
+    cluster = sums[ids].sum(1) / sizes[ids].sum(1)
+    rng = np.random.default_rng(42)
+    slice_boot = values[rng.integers(len(values), size=(10000, len(values)))].mean(1)
+    return {'mean': float(values.mean()), 'patient_lo': float(np.quantile(cluster, .025)), 'patient_hi': float(np.quantile(cluster, .975)), 'slice_lo': float(np.quantile(slice_boot, .025)), 'slice_hi': float(np.quantile(slice_boot, .975))}
+
+
+def main(run_id):
+    if not run_id or any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789_-' for c in run_id):
+        raise ValueError('Invalid run ID')
+    out = ROOT / 'reports/v4_heldout_judge' / run_id
+    out.mkdir(parents=True, exist_ok=False)
+    base = ROOT / 'reports/v4_diffusion/b1_20261016_01/inputs'
+    data = load_pack(base / 'pack.npz', splits=['val'])
+    idx = select_indices(data, 'val', 100, 42)
+    images = data['val_x'][idx]
+    patient = data['val_pid'][idx].astype(str)
+    truth = {a: data[f'val_{a}'][idx].astype(int) for a in ['mfg', 'fs']}
+    selection = pd.DataFrame({'validation_index': idx, 'patient_id': patient, 'mfg': truth['mfg'], 'fs': truth['fs']})
+    selection.to_csv(out / 'validation_selection.csv', index=False)
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    torch.set_num_threads(2)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    models = judges(base / 'assets', device=device)
+    transforms = {'identity': lambda x: x, 'horizontal_flip': lambda x: np.flip(x, -1), 'vertical_flip': lambda x: np.flip(x, -2), 'rotate_180': lambda x: np.flip(x, (-2, -1))}
+    results, example_rows = [], []
+    for name, model in models.items():
+        original = name == 'original_predictor'
+        clean = probabilities(model, images, original=original, batch=16)
+        for transform, fn in transforms.items():
+            predicted = clean if transform == 'identity' else probabilities(model, fn(images).copy(), original=original, batch=16)
+            for axis in ['mfg', 'fs']:
+                p, initial, y = predicted[axis], clean[axis], truth[axis]
+                correct = (p.argmax(1) == y).astype(float)
+                clean_correct = (initial.argmax(1) == y).astype(float)
+                flipped = (p.argmax(1) != initial.argmax(1)).astype(float)
+                gain = p[np.arange(len(y)), y] - initial[np.arange(len(y)), y]
+                row = {'judge': name, 'transform': transform, 'axis': axis, 'n': len(y), 'patients': len(np.unique(patient))}
+                for metric, values in [('accuracy', correct), ('accuracy_delta', correct - clean_correct), ('prediction_flip', flipped), ('true_class_probability_delta', gain)]:
+                    row.update({f'{metric}_{key}': value for key, value in intervals(values, patient).items()})
+                results.append(row)
+                example_rows.append(pd.DataFrame({'judge': name, 'transform': transform, 'axis': axis, 'patient_id': patient, 'validation_index': idx, 'source_label': y, 'p0': p[:, 0], 'p1': p[:, 1], 'predicted': p.argmax(1), 'clean_predicted': initial.argmax(1), 'correct': correct, 'prediction_flip': flipped}))
+        print('Completed', name, flush=True)
+    pd.DataFrame(results).to_csv(out / 'summary.csv', index=False)
+    pd.concat(example_rows, ignore_index=True).to_csv(out / 'per_slice_predictions.csv', index=False)
+    json_write(out / 'protocol.json', {'split': 'original_validation_only', 'selection': '100 slices seed42 max10/patient, same selector as B1/B3', 'label_handling': 'source labels remain fixed under every transform', 'bootstrap': '10000 slice and patient-cluster resamples seed42; paired differences per slice', 'device': device, 'training_run': False, 'test_data_used': False, 'generator_or_operating_point_changed': False, 'exploratory': True, 'source_sha256': digest(__file__), 'asset_sha256': {p.name: digest(p) for p in (base / 'assets').glob('*.pt') if p.name != 'initial.pt'}, 'input_pack': str(base / 'pack.npz')})
+    (out / 'README.md').write_text('''# Existing-judge orientation sensitivity: validation only
+
+Generated by `python -m scripts.v4_heldout.orientation_probe`. `validation_selection.csv` freezes the selected 100 original-validation slices (up to ten per patient). `per_slice_predictions.csv` records unchanged source labels, probabilities and decisions for all seven existing judges under identity, horizontal flip, vertical flip and 180-degree rotation. `summary.csv` reports accuracy, paired accuracy change, decision-change rate and true-class-probability change with 10,000-resample slice and patient-clustered bootstrap intervals. `protocol.json` records provenance and settings. No original test images, training, generation, operating-point changes, or paid cloud app were used.
+
+This is an exploratory nuisance-sensitivity diagnostic prompted by a header audit. Transformed images preserve scanner labels; decisions that change indicate orientation sensitivity, not successful scanner counterfactual editing. It does not establish what features a judge uses on generated images or prove that all its decisions rely on orientation. A model's clean classification accuracy and robustness must both be reported. No results or papers were overwritten.
+''', encoding='utf-8')
+    print(out)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(__doc__)
+    parser.add_argument('--run-id', required=True)
+    main(parser.parse_args().run_id)
